@@ -1,0 +1,44 @@
+<app-search></app-search>
+
+<div class="main">
+    <div class="first-row" *ngIf='currCityWeather != undefined && currCityWeather.Temperature != undefined'>
+        <div>
+            <div class="img-wrapper">
+                <img src="../../../assets/img/weatherIcons/{{currCityWeather.WeatherIcon}}-s.png">
+            </div>
+            <div class="data-wrapper">
+                <span>{{ currCityKey.name }}</span>
+                <span *ngIf='degreeType !== objOfdegreeTypes.Celsius'>
+                    {{ currCityWeather.Temperature.Metric.Value }}'°C'</span>
+                <span *ngIf='degreeType === objOfdegreeTypes.Celsius'>
+                    {{ currCityWeather.Temperature.Imperial.Value }}'°F' }}</span>
+            </div>
+
+        </div>
+        <div class="addToFavorites">
+            <span *ngIf='!isAlreadyFavorite(currCityKey.key)'>
+                <img src="https://img.icons8.com/material-outlined/100/000000/hearts.png">
+                <a (click)='addToFavorites(currCityKey.name, currCityKey.key)'> Add to favorites</a>
+            </span>
+            <span *ngIf='isAlreadyFavorite(currCityKey.key)'>
+                <img src="https://img.icons8.com/material/100/e74c3c/hearts--v1.png">
+                <a (click)='removefromFavorites(currCityKey.key)'> Remove from favorites</a>
+            </span>
+        </div>
+    </div>
+    <div class="mid-row" *ngIf="currCityWeather">
+        <h5 class="font-weight-bold">Current Weather</h5>
+        <p class="text-muted"> {{ currCityWeather.WeatherText }} </p>
+    </div>
+    <div class="last-row" *ngIf="weatherArr.length > 0">
+        <div class="week">
+            <div class="day" *ngFor='let day of weatherArr'>
+                <b>{{ getDays(day.Date) }}</b>
+                <img src="../../../assets/img/weatherIcons/{{day.Day.Icon}}-s.png">
+                <span>{{ day.Temperature.Maximum.Value }}°{{ day.Temperature.Maximum.Unit }}
+                    - {{ day.Temperature.Minimum.Value }}°{{ day.Temperature.Minimum.Unit }}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

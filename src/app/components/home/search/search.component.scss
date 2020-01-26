@@ -1,0 +1,30 @@
+input {
+    background-image: url("https://img.icons8.com/office/16/000000/search.png");
+    background-repeat: no-repeat;
+    text-indent: 20px;
+    background-position: 10px 10px;
+    &:active {
+      background-image: none;
+    }
+  }
+  
+  .result-box {
+    ul {
+      width: 97%;
+      position: absolute;
+      opacity: 0.8;
+      z-index: 10000;
+      @media (max-width: 415px) {
+        width: 91%;
+      }
+      .list-group-item {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        img {
+          width: 1.5em;
+        }
+      }
+    }
+  }
+  

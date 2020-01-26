@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-md navbar-light bg-dark fixed-top">
+    <a routerLink="home" class="navbar-brand">    
+        <img src="../../../assets/img/logo.jpg">
+    </a> 
+        <button type="button" class="navbar-toggler bg-light" data-toggle="collapse" data-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-between" id="nav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a routerLink="home" routerLinkActive="active" class="nav-link font-weight-bold px-3">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="favorites" routerLinkActive="active"
+                        class="nav-link font-weight-bold px-3">FAVORITES</a>
+                </li>
+            </ul>
+            <button class="btn btn-primary" (click)='switchDegreeMode()'>
+                Switch to {{ degreeType === objOfdegreeTypes.Celsius ?  '°C' : '°F' }} </button>
+        </div>
+</nav>

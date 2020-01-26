@@ -1,0 +1,22 @@
+<div class="search-wraper">
+    <form class="form-group" [formGroup]='typedSearchForm'>
+        <input type="text" class="form-control" placeholder="Search" formControlName="typedSearch"
+            (input)='getCitiesWeather($event.target.value)' (keypress)="checkLang($event)" autofocus />
+        <div class="result-box" *ngIf='stackResults != undefined'>
+            <ul class="list-group mb-1">
+                <li *ngFor='let result of stackResults' class="list-group-item" (click)='changeCurrCity({name: result["LocalizedName"], key: result["Key"]})'>
+                    <span>{{ result['LocalizedName'] }}</span>
+                  
+                </li>
+                <li *ngIf='
+                typedSearchForm.get("typedSearch").dirty == true &&
+                 (stackResults == null || stackResults.length === 0) && 
+                 typedSearchForm.value.typedSearch != ""
+                 ' 
+                 class="list-group-item">
+                    No results containing your search terms.
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

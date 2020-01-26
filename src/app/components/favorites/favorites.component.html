@@ -1,0 +1,30 @@
+<p class="title">Favorites</p>
+<div class="favorites">
+    <p [style.width.%]='100' *ngIf='favoritCities.length === 0; else favorite' class="alert alert-danger">
+        There are no favorites!</p>
+    <ng-template #favorite>
+        <div class="favorite" *ngFor='let favorite of favoritCities; let i = index'>
+            <div class="img-wrapper">
+                <img (click)='removeFromFavorites(favorite.city.key)'
+                    src='https://img.icons8.com/windows/32/000000/--broken-heart.png'>
+            </div>
+            <div class="data-wrapper">
+                <div class="img">
+                    <img src="../../../assets/img/weatherIcons/{{favorite.weather.WeatherIcon}}-s.png">
+                    <button class="btn btn-info" (click)='setCityWeather({name: favorite.city.name, key: favorite.city.key})'>SET {{ favorite.city.name}}</button>
+                </div>
+                <div class="data">
+                    <span>{{ favorite.weather.isDayTime == true ? 'Morning' : 'Evening' }} in
+                        {{ favorite.city.name }}</span>
+                    <b>{{ favorite.weather.WeatherText }} </b>
+                    <span *ngIf='degreeType !== objOfdegreeTypes.Celsius'>
+                        {{ favorite.weather.Temperature.Metric.Value }}'°C'</span>
+                    <span *ngIf='degreeType === objOfdegreeTypes.Celsius'>
+                        {{ favorite.weather.Temperature.Imperial.Value }}'°F'</span>
+                    <span class="text-muted">Chance of precipitation:
+                        {{ favorite.weather.precipitation == true ? 'Yes' : 'No' }}</span>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
