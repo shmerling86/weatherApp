@@ -4,7 +4,8 @@
             (input)='getCitiesWeather($event.target.value)' (keypress)="checkLang($event)" autofocus />
         <div class="result-box" *ngIf='stackResults != undefined'>
             <ul class="list-group mb-1">
-                <li *ngFor='let result of stackResults' class="list-group-item" (click)='changeCurrCity({name: result["LocalizedName"], key: result["Key"]})'>
+                <li *ngFor='let result of stackResults' class="list-group-item" 
+                (click)='changeCurrCity({name: result["LocalizedName"], key: result["Key"]})'>
                     <span>{{ result['LocalizedName'] }}</span>
                   
                 </li>

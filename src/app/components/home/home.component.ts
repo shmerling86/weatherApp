@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Subscription, of } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 
 import * as WeatherActions from './store/weekWeather/weekWeather.actions';
 import * as currentCityActions from './store/current/currCity.actions';
+import * as CurrCityByPositionActions from './store/currentByPosition/currentByPosition.actions';
+
 import * as FavoritesActions from '../favorites/store/favorites.action';
 
 
@@ -17,9 +19,7 @@ import { CityKey } from 'src/app/interfaces/CityKey';
 import { CityWeather } from 'src/app/interfaces/CityWeather';
 import { Favorite } from 'src/app/interfaces/Favorite';
 import { DegreeType } from 'src/app/enum/DegreeType.enum';
-import { MainService } from 'src/app/services/main.service';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   currCityKey: CityKey;
   currCityWeather: CityWeather;
+
   favoritCities: Favorite[] = JSON.parse(localStorage.getItem('favoriteCities')) || [];
   degreeType: DegreeType;
   weatherArr: DailyForecasts[] = [];
@@ -39,6 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   currCitySub: Subscription;
   favoritesSub: Subscription;
   degreeTypeSub: Subscription;
+  currCityByPositionSub: Subscription;
 
   constructor(
     public router: Router,
@@ -48,30 +50,43 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((geoposition) => {
-        this.store.dispatch(new currentCityActions.CurrCityByPosition([{ lat: geoposition.coords.latitude, lon: geoposition.coords.longitude }]))
-      })
-    } else {
-      console.log('else');
-    }
-    this.favoritesSub = this.store.select('favorites').subscribe(
-      (favorites) => { if (this.favoritCities.length === 0) this.favoritCities = favorites.favorites });
-    this.getDefaultDataFromCity();
-    this.getWeekWeather();
-  }
+    this.getCurrCity();
+    this.getCurrCityWeatherByPosition();
+    this.getDailyForecasts();
 
-  getDefaultDataFromCity(): void {
-    this.currCitySub = this.store.select('currCity').subscribe(defaultCity => {
-      console.log(defaultCity);this.currCityKey = defaultCity.city[0] });
-    this.store.dispatch(new currentCityActions.CurrCity([this.currCityKey]));
+  }
+  
+  getCurrCity(): void {
     this.currCitySub = this.store.select('currCity').subscribe(defaultCity => {
       if (defaultCity.error !== undefined) this.toastr.error(defaultCity.error.message);
       if (!defaultCity.isLoading && defaultCity.weather !== null) this.currCityWeather = defaultCity.weather[0];
+      this.currCityKey = defaultCity.city[0];
     });
+    this.store.dispatch(new currentCityActions.CurrCity([this.currCityKey]))
   }
 
-  getWeekWeather(): void {
+  getCurrCityWeatherByPosition(): void {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.store.dispatch(new CurrCityByPositionActions.CurrCityByPosition(
+          [{ lat: position.coords.latitude, lon: position.coords.longitude }])
+        )
+        this.currCityByPositionSub = this.store.select('currCityByPosition').subscribe(defaultCity => {
+          if (!defaultCity.isLoading && defaultCity.cityDataByPosition !== null) {
+            this.currCityKey = {
+              name: defaultCity.cityDataByPosition[0]['LocalizedName'],
+              key: defaultCity.cityDataByPosition[0]['Key']
+            }
+            this.store.dispatch(new currentCityActions.CurrCity([this.currCityKey]))
+            this.store.dispatch(new WeatherActions.WeekWeather({ key: this.currCityKey.key, degreeType: this.degreeType }));
+          }
+        });
+      });
+    }
+
+  }
+
+  getDailyForecasts(): void {
     this.degreeTypeSub = this.store.select('degreeType').subscribe((degreeType) => this.degreeType = degreeType.degreeType);
     this.store.dispatch(new WeatherActions.WeekWeather({ key: this.currCityKey.key, degreeType: this.degreeType }));
     this.weatherSub = this.store.select('weekWeather').subscribe(weekWeather => {
@@ -86,6 +101,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   isAlreadyFavorite(currCityKey: string): boolean {
+    this.favoritesSub = this.store.select('favorites').subscribe(
+      (favorites) => { if (this.favoritCities.length === 0) this.favoritCities = favorites.favorites });
     if (this.favoritCities.length === 0) {
       return false
     }
@@ -110,6 +127,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.currCitySub.unsubscribe();
     this.degreeTypeSub.unsubscribe();
+    if (this.currCityByPositionSub != undefined) this.currCityByPositionSub.unsubscribe();
     if (this.weatherSub != undefined) this.weatherSub.unsubscribe();
     if (this.favoritesSub != undefined) this.favoritesSub.unsubscribe();
   }

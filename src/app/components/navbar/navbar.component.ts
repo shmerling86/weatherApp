@@ -16,7 +16,6 @@ import { CityKey } from 'src/app/interfaces/CityKey';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
-  currCityKey: CityKey;
   degreeType: DegreeType;
   objOfdegreeTypes = DegreeType;
   
@@ -26,17 +25,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(public router: Router, private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
-    this.currCitySub = this.store.select('currCity').subscribe(defaultCity => { this.currCityKey = defaultCity.city[0] });
     this.degreeTypeSub = this.store.select('degreeType').subscribe(defaultCity => { this.degreeType = defaultCity.degreeType });
   }
 
   switchDegreeMode(): void {
     this.store.dispatch(new WeatherActions.SwitchDegreeType())
-    this.store.dispatch(new WeatherActions.WeekWeather({ key: this.currCityKey.key, degreeType: this.degreeType }));
   }
 
   ngOnDestroy(): void {
-    this.currCitySub.unsubscribe();
     this.degreeTypeSub.unsubscribe();
   }
 }

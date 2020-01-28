@@ -1,19 +1,17 @@
 <app-search></app-search>
-
 <div class="main">
     <div class="first-row" *ngIf='currCityWeather != undefined && currCityWeather.Temperature != undefined'>
         <div>
             <div class="img-wrapper">
-                <img src="../../../assets/img/weatherIcons/{{currCityWeather.WeatherIcon}}-s.png">
+                <img src="../../../assets/weatherIcons/{{currCityWeather.WeatherIcon}}-s.png">
             </div>
             <div class="data-wrapper">
                 <span>{{ currCityKey.name }}</span>
                 <span *ngIf='degreeType !== objOfdegreeTypes.Celsius'>
-                    {{ currCityWeather.Temperature.Metric.Value }}'°C'</span>
+                    {{ currCityWeather.Temperature.Metric.Value }}°C</span>
                 <span *ngIf='degreeType === objOfdegreeTypes.Celsius'>
-                    {{ currCityWeather.Temperature.Imperial.Value }}'°F' }}</span>
+                    {{ currCityWeather.Temperature.Imperial.Value }}°F</span>
             </div>
-
         </div>
         <div class="addToFavorites">
             <span *ngIf='!isAlreadyFavorite(currCityKey.key)'>
@@ -34,7 +32,7 @@
         <div class="week">
             <div class="day" *ngFor='let day of weatherArr'>
                 <b>{{ getDays(day.Date) }}</b>
-                <img src="../../../assets/img/weatherIcons/{{day.Day.Icon}}-s.png">
+                <img src="../../../assets/weatherIcons/{{day.Day.Icon}}-s.png">
                 <span>{{ day.Temperature.Maximum.Value }}°{{ day.Temperature.Maximum.Unit }}
                     - {{ day.Temperature.Minimum.Value }}°{{ day.Temperature.Minimum.Unit }}
                 </span>

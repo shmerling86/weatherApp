@@ -1,5 +1,5 @@
 export interface CityWeather {
-    
+
     "LocalObservationDateTime": string,
     "EpochTime": number,
     "WeatherText": string,
