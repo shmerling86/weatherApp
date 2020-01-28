@@ -25,6 +25,7 @@
     "@ngrx/store-devtools": "^8.5.1",
     "ngx-toastr": "^11.2.0",
     "rxjs": "~6.4.0",
+    "serialize-javascript": "^2.1.2",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

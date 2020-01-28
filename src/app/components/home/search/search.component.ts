@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducer';
 
 import * as ResultsActions from './store/search.actions';
-import * as currentCityActions from '../../../components/home/store/current/currCity.actions';
+import * as CurrCityActions from '../../../components/home/store/current/currCity.actions';
 import * as WeatherActions from '../../../components/home/store/weekWeather/weekWeather.actions';
 import * as StackResultsActions from '../../../components/home/search/store/search.actions'
 
@@ -27,7 +27,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   typedSearchForm: FormGroup;
   stackResults: AutoComplete[];
   degreeType: DegreeType;
-  
+
   favoritesSub: Subscription;
   resultSub: Subscription;
 
@@ -42,7 +42,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   changeCurrCity(currCityKey): void {
-    this.store.dispatch(new currentCityActions.CurrCity([currCityKey]));
+    this.store.dispatch(new CurrCityActions.CurrCity([currCityKey]));
     this.store.dispatch(new WeatherActions.WeekWeather({ key: currCityKey.key, degreeType: this.degreeType }));
     this.store.dispatch(new StackResultsActions.SearchResults(''));
     this.typedSearchForm.setValue({ typedSearch: '' })
@@ -67,7 +67,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.favoritesSub != undefined) this.favoritesSub.unsubscribe();
-    if (this.resultSub != undefined) this.resultSub.unsubscribe()
+    if (this.resultSub != undefined) this.resultSub.unsubscribe();
   }
 
 }

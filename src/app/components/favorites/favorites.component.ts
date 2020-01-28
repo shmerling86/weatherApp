@@ -22,9 +22,12 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   favoritCities: Favorite[] = JSON.parse(localStorage.getItem('favoriteCities')) || [];
   degreeType: DegreeType;
   objOfdegreeTypes = DegreeType;
+  currCityKey: CityKey;
 
   degreeTypeSub: Subscription;
   favoritesSub: Subscription;
+  currCitySub: Subscription;
+
 
   constructor(
     public router: Router,
@@ -46,6 +49,10 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   }
 
   setCityWeather(cityKey: CityKey): void {
+    this.currCitySub = this.store.select('currCity').subscribe(defaultCity => {
+      if (defaultCity.error !== undefined) this.toastr.error(defaultCity.error.message);
+      this.currCityKey = defaultCity.city[0];
+    });
     this.store.dispatch(new CurrCityActions.CurrCity([cityKey]));
     this.router.navigate(['/home']);
     this.toastr.success(`Weather in ${cityKey.name} is selected`);
@@ -54,6 +61,8 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.favoritesSub != undefined) this.favoritesSub.unsubscribe();
     this.degreeTypeSub.unsubscribe();
+    if (this.currCitySub != undefined) this.currCitySub.unsubscribe()
+
   }
 
 

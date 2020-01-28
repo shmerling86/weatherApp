@@ -6,11 +6,10 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 
 import * as WeatherActions from './store/weekWeather/weekWeather.actions';
-import * as currentCityActions from './store/current/currCity.actions';
+import * as CurrCityActions from './store/current/currCity.actions';
 import * as CurrCityByPositionActions from './store/currentByPosition/currentByPosition.actions';
 
 import * as FavoritesActions from '../favorites/store/favorites.action';
-
 
 import { ToastrService } from 'ngx-toastr';
 
@@ -47,13 +46,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private store: Store<fromApp.AppState>,
     private http: HttpClient
-  ) { }
-
+  ) {
+  }
+  
   ngOnInit(): void {
     this.getCurrCity();
     this.getCurrCityWeatherByPosition();
     this.getDailyForecasts();
-
   }
   
   getCurrCity(): void {
@@ -62,28 +61,27 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (!defaultCity.isLoading && defaultCity.weather !== null) this.currCityWeather = defaultCity.weather[0];
       this.currCityKey = defaultCity.city[0];
     });
-    this.store.dispatch(new currentCityActions.CurrCity([this.currCityKey]))
+    this.store.dispatch(new CurrCityActions.CurrCity([this.currCityKey]))
   }
-
+  
   getCurrCityWeatherByPosition(): void {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.store.dispatch(new CurrCityByPositionActions.CurrCityByPosition(
           [{ lat: position.coords.latitude, lon: position.coords.longitude }])
         )
-        this.currCityByPositionSub = this.store.select('currCityByPosition').subscribe(defaultCity => {
+        this.currCityByPositionSub = this.store.select('currCityByPosition').subscribe(defaultCity => {          
           if (!defaultCity.isLoading && defaultCity.cityDataByPosition !== null) {
             this.currCityKey = {
-              name: defaultCity.cityDataByPosition[0]['LocalizedName'],
-              key: defaultCity.cityDataByPosition[0]['Key']
-            }
-            this.store.dispatch(new currentCityActions.CurrCity([this.currCityKey]))
+              name: defaultCity.cityDataByPosition['LocalizedName'],
+              key: defaultCity.cityDataByPosition['Key']
+            }            
+            this.store.dispatch(new CurrCityActions.CurrCity([this.currCityKey]))
             this.store.dispatch(new WeatherActions.WeekWeather({ key: this.currCityKey.key, degreeType: this.degreeType }));
           }
         });
       });
     }
-
   }
 
   getDailyForecasts(): void {
