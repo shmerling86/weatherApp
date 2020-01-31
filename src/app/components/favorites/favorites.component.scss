@@ -22,26 +22,25 @@
       cursor: pointer;
 
       img {
-        width: 1em;
-      }
+        width: 1.3em;      }
     }
     .data-wrapper {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-content: center;
+      b {
+        padding: 0 0 1em 0;
+      }
       .img {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
         width: 50%;
         @media (max-width: 415px) {
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
         }
         img {
           width: 100%;
-          @media (max-width: 415px) {
-            width: 7em;
-          }
         }
       }
       .data {
@@ -49,19 +48,18 @@
         flex-direction: column;
         justify-content: space-between;
         align-content: center;
-        margin: 0.4em;
+        margin: 1.4em;
         width: 50%;
-        b {
-          padding: 2em 0;
+        .precipitation {
+          @media (max-width: 415px) {
+            display: none;
+          }
         }
+
         .text-muted {
           font-size: 0.9em;
         }
       }
-    }
-    &:hover {
-      cursor: pointer;
-      box-shadow: inset 10px 10px 10px -13px rgba(0, 0, 0, 0.75);
     }
   }
 }

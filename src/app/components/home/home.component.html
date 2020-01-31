@@ -40,12 +40,12 @@
 <div class="main">
     <div class="first-row" *ngIf='currCityWeather != undefined && currCityWeather.Temperature != undefined'>
         <div class="current-data">
-            <span *ngIf='degreeType !== objOfdegreeTypes.Celsius'>
+            <span class="text-muted" *ngIf='degreeType !== objOfdegreeTypes.Celsius'>
                 {{ currCityWeather.Temperature.Metric.Value }}°C</span>
-            <span *ngIf='degreeType === objOfdegreeTypes.Celsius'>
+            <span class="text-muted" *ngIf='degreeType === objOfdegreeTypes.Celsius'>
                 {{ currCityWeather.Temperature.Imperial.Value }}°F</span>
             <div class="mid-row" *ngIf="currCityWeather">
-                <p class="text-muted"> {{ currCityWeather.WeatherText }} </p>
+                <p > {{ currCityWeather.WeatherText }} </p>
             </div>
         </div>
         <div class="current-city">

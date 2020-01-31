@@ -6,13 +6,16 @@
   }
   .dropdown {
     .dropdown-menu {
-      opacity: 0.85;
+      opacity: 0.9;
       .dropdown-itemp {
         display: flex;
         justify-content: flex-start;
         cursor: pointer;
         width: 13em;
         padding: 0.4em 0;
+        @media (max-width: 415px) {
+          width: 11em;
+        }
         img {
           width: 1.5em;
           height: 1.5em;
@@ -21,6 +24,9 @@
         p {
           opacity: 0.5;
           margin: 0;
+          @media (max-width: 415px) {
+            font-size: 0.8em;
+          }
         }
         &:hover {
           p {
@@ -36,11 +42,16 @@
     display: flex;
     justify-content: space-between;
     padding: 2em 0;
+    @media (max-width: 415px) {
+      flex-direction: column-reverse;
+    }
     .current-data {
       display: flex;
       flex-direction: column;
 
       span {
+        display: flex;
+        justify-content: center;
         font-size: 4em;
       }
     }
@@ -52,11 +63,14 @@
         font-size: 2em;
         p {
           font-size: 0.5em;
+          @media (max-width: 415px) {
+            display: none;
+          }
         }
         img {
           width: 5em;
           @media (max-width: 415px) {
-            display: none;
+            width: 2em;
           }
         }
       }
@@ -79,8 +93,6 @@
     }
   }
 
- 
-
   .last-row {
     .week {
       display: flex;
@@ -96,6 +108,9 @@
         margin: 0.1em;
         box-shadow: 10px 10px 10px -13px rgba(0, 0, 0, 0.75);
         width: 20%;
+        @media (max-width: 415px) {
+          padding: 0.5em;
+        }
         .day-title {
           font-weight: bold;
         }
@@ -104,13 +119,22 @@
           flex-direction: column;
           align-items: center;
           margin: 0 auto;
+          padding: 1em;
+
           .weather-title {
             font-size: 0.8em;
             flex-grow: 1;
             padding: 1em;
+            @media (max-width: 415px) {
+              padding: 0em;
+            }
+
           }
           img {
             padding: 1em;
+            @media (max-width: 415px) {
+              padding: 0em;
+            }
           }
         }
         @media (max-width: 415px) {

@@ -11,17 +11,21 @@
             <div class="data-wrapper">
                 <div class="img">
                     <img src="{{'assets/weatherIcons/' + favorite.weather.WeatherIcon}}-s.png">
-                    <button class="btn btn-info" (click)='setCityWeather({name: favorite.city.name, key: favorite.city.key})'>SET {{ favorite.city.name}}</button>
+                    <b>{{ favorite.weather.WeatherText }} </b>
+                    <button class="btn btn-info btn-sm"
+                        (click)='setCityWeather({name: favorite.city.name, key: favorite.city.key})'>SET
+                        {{ favorite.city.name}}</button>
                 </div>
                 <div class="data">
-                    <span>{{ favorite.weather.IsDayTime === true ? 'Morning' : 'Evening' }} in
-                        {{ favorite.city.name }}</span>
-                    <b>{{ favorite.weather.WeatherText }} </b>
-                    <span *ngIf='degreeType !== objOfdegreeTypes.Celsius'>
+                    <span style="font-size: 2em">{{ favorite.city.name }}</span>
+                    <span class="font-weight-bold" style="font-size: 2em"
+                        *ngIf='degreeType !== objOfdegreeTypes.Celsius'>
                         {{ favorite.weather.Temperature.Metric.Value }}°C</span>
-                    <span *ngIf='degreeType === objOfdegreeTypes.Celsius'>
+                    <span class="font-weight-bold" style="font-size: 2em;padding: 0.6em;"
+                        *ngIf='degreeType === objOfdegreeTypes.Celsius'>
                         {{ favorite.weather.Temperature.Imperial.Value }}°F</span>
-                    <span class="text-muted">Chances of precipitation:
+                    {{ favorite.weather.IsDayTime === true ? 'Morning' : 'Evening' }} time
+                    <span class="text-muted precipitation">Chances of precipitation:
                         {{ favorite.weather.precipitation == true ? 'Yes' : 'No' }}</span>
                 </div>
             </div>
