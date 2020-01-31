@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 import * as fromApp from '../../store/app.reducer';
 import * as FavoritesActions from '../favorites/store/favorites.action';
 import * as CurrCityActions from '../../components/home/store/current/currCity.actions';
@@ -36,6 +37,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+  
     this.degreeTypeSub = this.store.select('degreeType')
       .subscribe((degreeType) => this.degreeType = degreeType.degreeType);
       this.favoritesSub = this.store.select('favorites').subscribe((favorites) => { if (this.favoritCities.length === 0) this.favoritCities = favorites.favorites })

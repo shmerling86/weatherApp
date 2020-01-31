@@ -1,80 +1,122 @@
-.main {
-    .first-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 2em 0;
-      div {
+.options {
+  display: flex;
+  flex-direction: row-reverse;
+  img {
+    width: 2em;
+  }
+  .dropdown {
+    .dropdown-menu {
+      opacity: 0.85;
+      .dropdown-itemp {
         display: flex;
-        .data-wrapper {
-          display: flex;
-          flex-direction: column;
+        justify-content: flex-start;
+        cursor: pointer;
+        width: 13em;
+        padding: 0.4em 0;
+        img {
+          width: 1.5em;
+          height: 1.5em;
+          margin: 0 0.4em;
         }
-        .img-wrapper {
-          img {
-            width: 100%;
-          }
-        }
-      }
-      .addToFavorites {
-        span {
+        p {
           opacity: 0.5;
-          a {
-            cursor: pointer;
-            color: black;
-          }
-          img {
-            width: 1.3em;
-            margin-right: 0.4em;
-          }
-          &:hover {
+          margin: 0;
+        }
+        &:hover {
+          p {
             opacity: 1;
-          }
-        }
-        span.disabled {
-          opacity: 0.5;
-          a {
-            cursor: not-allowed;
-          }
-        }
-      }
-      @media (max-width: 415px) {
-        font-size: 0.8em;
-      }
-    }
-    .mid-row {
-      text-align: center;
-      font-size: 2em;
-      padding: 2em 0;
-      box-shadow: 10px 10px 10px -13px rgba(0, 0, 0, 0.75);
-      p {
-        font-size: 2.5em;
-      }
-    }
-    .last-row {
-      padding: 2em 0;
-      .week {
-        display: flex;
-        justify-content: center;
-        @media (max-width: 415px) {
-          flex-flow: row wrap;
-        }
-        .day {
-          display: flex;
-          flex-direction: column;
-          text-align: center;
-          padding: 2em;
-          margin: 0.1em;
-          box-shadow: 10px 10px 10px -13px rgba(0, 0, 0, 0.75);
-          width: 20%;
-          img {
-            width: 100%;
-            margin: 1em 0;
-          }
-          @media (max-width: 415px) {
-            width: 100%;
           }
         }
       }
     }
   }
-  
+}
+.main {
+  .first-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 2em 0;
+    .current-data {
+      display: flex;
+      flex-direction: column;
+
+      span {
+        font-size: 4em;
+      }
+    }
+    .current-city {
+      display: flex;
+      flex-direction: column;
+      .city-wrapper {
+        text-align: center;
+        font-size: 2em;
+        p {
+          font-size: 0.5em;
+        }
+        img {
+          width: 5em;
+          @media (max-width: 415px) {
+            display: none;
+          }
+        }
+      }
+      img {
+        width: 2em;
+      }
+    }
+    @media (max-width: 415px) {
+      font-size: 0.8em;
+    }
+  }
+
+  .mid-row {
+    text-align: center;
+    p {
+      font-size: 2.5em;
+      @media (max-width: 415px) {
+        font-size: 1em;
+      }
+    }
+  }
+
+ 
+
+  .last-row {
+    .week {
+      display: flex;
+      justify-content: center;
+      @media (max-width: 415px) {
+        flex-flow: row wrap;
+      }
+      .day {
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        padding: 2em;
+        margin: 0.1em;
+        box-shadow: 10px 10px 10px -13px rgba(0, 0, 0, 0.75);
+        width: 20%;
+        .day-title {
+          font-weight: bold;
+        }
+        .day-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 0 auto;
+          .weather-title {
+            font-size: 0.8em;
+            flex-grow: 1;
+            padding: 1em;
+          }
+          img {
+            padding: 1em;
+          }
+        }
+        @media (max-width: 415px) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

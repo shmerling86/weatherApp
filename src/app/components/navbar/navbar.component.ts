@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
-import * as WeatherActions from '../home/store/weekWeather/weekWeather.actions';
 import { Subscription } from 'rxjs';
 
 import { DegreeType } from 'src/app/enum/DegreeType.enum';
@@ -17,8 +16,8 @@ import { CityKey } from 'src/app/interfaces/CityKey';
 export class NavbarComponent implements OnInit, OnDestroy {
 
   degreeType: DegreeType;
-  objOfdegreeTypes = DegreeType;
-  
+  currCityKey: CityKey;
+
   currCitySub: Subscription;
   degreeTypeSub: Subscription;
 
@@ -26,13 +25,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.degreeTypeSub = this.store.select('degreeType').subscribe(defaultCity => { this.degreeType = defaultCity.degreeType });
-  }
-
-  switchDegreeMode(): void {
-    this.store.dispatch(new WeatherActions.SwitchDegreeType())
+    this.currCitySub = this.store.select('currCity').subscribe(defaultCity => { this.currCityKey = defaultCity.city[0] });
   }
 
   ngOnDestroy(): void {
     this.degreeTypeSub.unsubscribe();
+    if (this.currCitySub != undefined) this.currCitySub.unsubscribe();
   }
 }

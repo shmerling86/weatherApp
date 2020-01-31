@@ -1,41 +1,78 @@
 <app-search></app-search>
+<div class="options">
+    <div class="dropdown">
+        <img src="https://img.icons8.com/ios-glyphs/100/000000/ellipsis.png" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+            <span *ngIf='!isAlreadyFavorite(currCityKey.key)'
+                (click)='addToFavorites(currCityKey.name, currCityKey.key)' class="dropdown-itemp">
+                <img src="https://img.icons8.com/material-outlined/40/000000/hearts.png">
+                <p>Add to Favorites</p>
+            </span>
+            <span *ngIf='isAlreadyFavorite(currCityKey.key)' (click)='removefromFavorites(currCityKey.key)'
+                class="dropdown-itemp">
+                <img src="https://img.icons8.com/material/40/e74c3c/hearts--v1.png">
+                <p>Remove from Favorites</p>
+            </span>
+            <div class="dropdown-divider"></div>
+            <span (click)='switchDegreeMode()' class="dropdown-itemp">
+                <img src="https://img.icons8.com/ultraviolet/40/000000/thermometer.png">
+                <p>Switch to {{ degreeType === objOfdegreeTypes.Celsius ? 'Celsius' : 'Fahrenheit' }}</p>
+            </span>
+            <div class="dropdown-divider"></div>
+            <span (click)='switchToGpsCity()' class="dropdown-itemp">
+                <img src="https://img.icons8.com/offices/40/000000/worldwide-location.png">
+                <p>Set local weather</p>
+            </span>
+            <div class="dropdown-divider"></div>
+            <span *ngIf='isDayForecast' (click)='changeForecastView()' class="dropdown-itemp">
+                <img src="https://img.icons8.com/ultraviolet/40/000000/moon.png">
+                <p>View night forecast</p>
+            </span>
+            <span *ngIf='!isDayForecast' (click)='changeForecastView()' class="dropdown-itemp">
+                <img src="https://img.icons8.com/ultraviolet/40/000000/sun.png">
+                <p>View day forecast</p>
+            </span>
+        </div>
+    </div>
+</div>
+
 <div class="main">
     <div class="first-row" *ngIf='currCityWeather != undefined && currCityWeather.Temperature != undefined'>
-        <div>
-            <div class="img-wrapper">
-                <img src="../../../assets/weatherIcons/{{currCityWeather.WeatherIcon}}-s.png">
+        <div class="current-data">
+            <span *ngIf='degreeType !== objOfdegreeTypes.Celsius'>
+                {{ currCityWeather.Temperature.Metric.Value }}°C</span>
+            <span *ngIf='degreeType === objOfdegreeTypes.Celsius'>
+                {{ currCityWeather.Temperature.Imperial.Value }}°F</span>
+            <div class="mid-row" *ngIf="currCityWeather">
+                <p class="text-muted"> {{ currCityWeather.WeatherText }} </p>
             </div>
-            <div class="data-wrapper">
+        </div>
+        <div class="current-city">
+            <div class="city-wrapper">
+                <p class="text-muted"> {{ currCityWeather.LocalObservationDateTime | date :'medium' }} </p>
                 <span>{{ currCityKey.name }}</span>
-                <span *ngIf='degreeType !== objOfdegreeTypes.Celsius'>
-                    {{ currCityWeather.Temperature.Metric.Value }}°C</span>
-                <span *ngIf='degreeType === objOfdegreeTypes.Celsius'>
-                    {{ currCityWeather.Temperature.Imperial.Value }}°F</span>
+                <img src="{{'assets/weatherIcons/' + currCityWeather.WeatherIcon}}-s.png">
             </div>
         </div>
-        <div class="addToFavorites">
-            <span *ngIf='!isAlreadyFavorite(currCityKey.key)'>
-                <img src="https://img.icons8.com/material-outlined/100/000000/hearts.png">
-                <a (click)='addToFavorites(currCityKey.name, currCityKey.key)'> Add to favorites</a>
-            </span>
-            <span *ngIf='isAlreadyFavorite(currCityKey.key)'>
-                <img src="https://img.icons8.com/material/100/e74c3c/hearts--v1.png">
-                <a (click)='removefromFavorites(currCityKey.key)'> Remove from favorites</a>
-            </span>
-        </div>
     </div>
-    <div class="mid-row" *ngIf="currCityWeather">
-        <h5 class="font-weight-bold">Current Weather</h5>
-        <p class="text-muted"> {{ currCityWeather.WeatherText }} </p>
-    </div>
+    
     <div class="last-row" *ngIf="weatherArr.length > 0">
         <div class="week">
             <div class="day" *ngFor='let day of weatherArr'>
-                <b>{{ getDays(day.Date) }}</b>
-                <img src="../../../assets/weatherIcons/{{day.Day.Icon}}-s.png">
-                <span>{{ day.Temperature.Maximum.Value }}°{{ day.Temperature.Maximum.Unit }}
-                    - {{ day.Temperature.Minimum.Value }}°{{ day.Temperature.Minimum.Unit }}
-                </span>
+                <div class="day-wrapper" *ngIf='isDayForecast'>
+                    <span class="day-title">{{ getDays(day.Date) }}</span>
+                    <img src="{{'assets/weatherIcons/' + day.Day.Icon}}-s.png">
+                    <span class="weather-title text-muted">{{ day.Day.IconPhrase }}</span>
+                    <b>{{ day.Temperature.Maximum.Value }}°{{ day.Temperature.Maximum.Unit }}</b>
+                </div>
+                <div class="day-wrapper" *ngIf='!isDayForecast'>
+                    <span class="day-title">{{ getDays(day.Date) }}</span>
+                    <img src="{{'assets/weatherIcons/' + day.Night.Icon}}-s.png">
+                    <span class="weather-title text-muted">{{ day.Night.IconPhrase }}</span>
+                    <b>{{ day.Temperature.Minimum.Value }}°{{ day.Temperature.Minimum.Unit }}
+                    </b>
+                </div>
             </div>
         </div>
     </div>

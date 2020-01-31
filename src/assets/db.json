@@ -6,7 +6,7 @@
         "WeatherIcon": 8,
         "HasPrecipitation": true,
         "PrecipitationType": "Rain",
-        "IsDayTime": true,
+        "IsDayTime": false,
         "Temperature": {
             "Metric": {
                 "Value": 14.3,

@@ -1,24 +1,18 @@
 import * as CurrCityActions from '../current/currCity.actions';
 import { CityKey } from 'src/app/interfaces/CityKey';
 import { CityWeather } from 'src/app/interfaces/CityWeather';
-import { CityDataByPosition } from 'src/app/interfaces/CityDataByPosition';
-import { CityPosition } from 'src/app/interfaces/CityPosition';
 
 
 export type Action = CurrCityActions.All;
 
 export interface currentCityState {
-    // cityPosition: CityPosition[],
     city: CityKey[],
-    // cityDataByPosition: CityDataByPosition[], 
     weather: CityWeather[],
     isLoading: boolean,
     error: Error
 }
 
 const defaultState: currentCityState = {
-    // cityPosition: null,
-    // cityDataByPosition: null,
     city:
         [{
             name: 'Tel Aviv',
