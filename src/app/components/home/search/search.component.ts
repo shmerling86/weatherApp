@@ -3,9 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-
 import * as fromApp from '../../../store/app.reducer';
-
 import * as ResultsActions from './store/search.actions';
 import * as CurrCityActions from '../../../components/home/store/current/currCity.actions';
 import * as WeatherActions from '../../../components/home/store/weekWeather/weekWeather.actions';
@@ -41,9 +39,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.store.select('degreeType').subscribe((degreeType) => this.degreeType = degreeType.degreeType)
   }
 
-  changeCurrCity(currCityKey): void {
-    this.store.dispatch(new CurrCityActions.CurrCity([currCityKey]));
-    this.store.dispatch(new WeatherActions.WeekWeather({ key: currCityKey.key, degreeType: this.degreeType }));
+  changeCurrCity(currCity): void {
+    this.store.dispatch(new CurrCityActions.CurrCity([currCity]));
+    this.store.dispatch(new WeatherActions.WeekWeather({ key: currCity.key, degreeType: this.degreeType }));
     this.store.dispatch(new StackResultsActions.SearchResults(''));
     this.typedSearchForm.setValue({ typedSearch: '' })
   }

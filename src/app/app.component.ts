@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
-import { MainService } from './services/main.service';
+import { MainService } from './services/api.service';
 
 @Component({
   selector: 'app-root',

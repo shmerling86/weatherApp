@@ -22,11 +22,12 @@
       cursor: pointer;
 
       img {
-        width: 1.3em;      }
+        width: 1.3em;
+      }
     }
     .data-wrapper {
       display: flex;
-      flex-direction: row;
+      flex-direction: column-reverse;
       justify-content: space-between;
       align-content: center;
       b {
@@ -36,11 +37,12 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
-        width: 50%;
-        @media (max-width: 415px) {
-        }
         img {
-          width: 100%;
+          align-self: center;
+        }
+        button{
+          width: 50%;
+          align-self: center;
         }
       }
       .data {
@@ -48,13 +50,20 @@
         flex-direction: column;
         justify-content: space-between;
         align-content: center;
-        margin: 1.4em;
-        width: 50%;
-        .precipitation {
-          @media (max-width: 415px) {
-            display: none;
-          }
+        width: 100%;
+        @media (max-width: 415px) {
+          margin: 0;
         }
+        // .isDayTime {
+        //   @media (max-width: 415px) {
+        //     display: none;
+        //   }
+        // }
+        // .precipitation {
+        //   @media (max-width: 415px) {
+        //     display: none;
+        //   }
+        // }
 
         .text-muted {
           font-size: 0.9em;

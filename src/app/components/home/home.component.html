@@ -17,7 +17,7 @@
             <div class="dropdown-divider"></div>
             <span (click)='switchDegreeMode()' class="dropdown-itemp">
                 <img src="https://img.icons8.com/ultraviolet/40/000000/thermometer.png">
-                <p>Switch to {{ degreeType === objOfdegreeTypes.Celsius ? 'Celsius' : 'Fahrenheit' }}</p>
+                <p>Switch to {{ degreeType === degreeTypes.Celsius ? 'Celsius' : 'Fahrenheit' }}</p>
             </span>
             <div class="dropdown-divider"></div>
             <span (click)='switchToGpsCity()' class="dropdown-itemp">
@@ -40,9 +40,9 @@
 <div class="main">
     <div class="first-row" *ngIf='currCityWeather != undefined && currCityWeather.Temperature != undefined'>
         <div class="current-data">
-            <span class="text-muted" *ngIf='degreeType !== objOfdegreeTypes.Celsius'>
+            <span class="text-muted" *ngIf='degreeType !== degreeTypes.Celsius'>
                 {{ currCityWeather.Temperature.Metric.Value }}°C</span>
-            <span class="text-muted" *ngIf='degreeType === objOfdegreeTypes.Celsius'>
+            <span class="text-muted" *ngIf='degreeType === degreeTypes.Celsius'>
                 {{ currCityWeather.Temperature.Imperial.Value }}°F</span>
             <div class="mid-row" *ngIf="currCityWeather">
                 <p > {{ currCityWeather.WeatherText }} </p>
@@ -57,9 +57,9 @@
         </div>
     </div>
     
-    <div class="last-row" *ngIf="weatherArr.length > 0">
+    <div class="last-row" *ngIf="weekForecasts.length > 0">
         <div class="week">
-            <div class="day" *ngFor='let day of weatherArr'>
+            <div class="day" *ngFor='let day of weekForecasts'>
                 <div class="day-wrapper" *ngIf='isDayForecast'>
                     <span class="day-title">{{ getDays(day.Date) }}</span>
                     <img src="{{'assets/weatherIcons/' + day.Day.Icon}}-s.png">

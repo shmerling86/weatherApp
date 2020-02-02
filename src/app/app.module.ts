@@ -18,7 +18,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchComponent } from './components/home/search/search.component';
-import { MainService } from './services/main.service';
+import { MainService } from './services/api.service';
 
 import { EffectsModule } from '@ngrx/effects';
 import { ResultsEffects } from './components/home/search/store/search.effect';

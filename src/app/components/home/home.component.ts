@@ -1,14 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, NavigationEnd, NavigationStart, Scroll } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
-
 import * as WeatherActions from './store/weekWeather/weekWeather.actions';
 import * as CurrCityActions from './store/current/currCity.actions';
 import * as CurrCityByPositionActions from './store/currentByPosition/currentByPosition.actions';
-
 import * as FavoritesActions from '../favorites/store/favorites.action';
 
 import { ToastrService } from 'ngx-toastr';
@@ -31,8 +29,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   currCityKey: CityKey;
   currCityWeather: CityWeather;
   degreeType: DegreeType;
-  weatherArr: DailyForecasts[] = [];
-  objOfdegreeTypes = DegreeType;
+  weekForecasts: DailyForecasts[] = [];
+  degreeTypes = DegreeType;
   isDayForecast: boolean = true;
 
   weatherSub: Subscription;
@@ -66,7 +64,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.store.dispatch(new WeatherActions.WeekWeather({ key: this.currCityKey.key, degreeType: this.degreeType }));
     this.weatherSub = this.store.select('weekWeather').subscribe(weekWeather => {
       if (weekWeather.error !== undefined) this.toastr.error(weekWeather.error.message);
-      if (weekWeather.cityForecast != null) this.weatherArr = weekWeather.cityForecast['DailyForecasts']
+      if (!weekWeather.isLoading && weekWeather.cityForecast != null) this.weekForecasts = weekWeather.cityForecast['DailyForecasts']
     });
   }
 
@@ -75,13 +73,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     return days[new Date(dateString).getDay()];
   }
 
-  isAlreadyFavorite(currCityKey: string): boolean {
+  isAlreadyFavorite(cityKey: string): boolean {
     this.favoritesSub = this.store.select('favorites').subscribe(
       (favorites) => { if (this.favoritCities.length === 0) this.favoritCities = favorites.favorites });
     if (this.favoritCities.length === 0) {
       return false
     }
-    return !!this.favoritCities.find((favoriteCity) => favoriteCity.city.key === currCityKey)
+    return !!this.favoritCities.find((favoriteCity) => favoriteCity.city.key === cityKey)
   }
 
   addToFavorites(fName, fKey): void {
@@ -92,9 +90,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.toastr.info(`${fName} added to favorites`)
   }
 
-  removefromFavorites(cityKey): void {
-    this.favoritCities = this.favoritCities.filter((favorite) => cityKey !== favorite.city.key)
-    localStorage.setItem('favoriteCities', JSON.stringify(this.favoritCities))
+  removefromFavorites(cityKey: string): void {
+    this.favoritCities = this.favoritCities.filter((favorite) => cityKey !== favorite.city.key);
+    localStorage.setItem('favoriteCities', JSON.stringify(this.favoritCities));
     this.store.dispatch(new FavoritesActions.RemoveFavorite(cityKey));
     this.toastr.info('Item removed');
   }

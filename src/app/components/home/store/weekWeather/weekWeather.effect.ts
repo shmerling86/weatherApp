@@ -5,7 +5,7 @@ import { mergeMap, map, catchError } from 'rxjs/operators';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 
 import * as WeatherActions from './weekWeather.actions';
-import { MainService } from 'src/app/services/main.service';
+import { MainService } from 'src/app/services/api.service';
 import { DailyForecasts } from 'src/app/interfaces/DailyForecasts';
 import { DegreeType } from 'src/app/enum/DegreeType.enum';
 

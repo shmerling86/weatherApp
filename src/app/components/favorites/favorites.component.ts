@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
 import * as fromApp from '../../store/app.reducer';
 import * as FavoritesActions from '../favorites/store/favorites.action';
 import * as CurrCityActions from '../../components/home/store/current/currCity.actions';
@@ -22,13 +21,12 @@ export class FavoritesComponent implements OnInit, OnDestroy {
 
   favoritCities: Favorite[] = JSON.parse(localStorage.getItem('favoriteCities')) || [];
   degreeType: DegreeType;
-  objOfdegreeTypes = DegreeType;
+  degreeTypes = DegreeType;
   currCityKey: CityKey;
 
   degreeTypeSub: Subscription;
   favoritesSub: Subscription;
   currCitySub: Subscription;
-
 
   constructor(
     public router: Router,
@@ -37,7 +35,6 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-  
     this.degreeTypeSub = this.store.select('degreeType')
       .subscribe((degreeType) => this.degreeType = degreeType.degreeType);
       this.favoritesSub = this.store.select('favorites').subscribe((favorites) => { if (this.favoritCities.length === 0) this.favoritCities = favorites.favorites })
@@ -45,7 +42,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
 
   removeFromFavorites(cityKey: string): void {
     this.favoritCities = this.favoritCities.filter((favorite) => cityKey !== favorite.city.key);
-    localStorage.setItem('favoriteCities', JSON.stringify(this.favoritCities))
+    localStorage.setItem('favoriteCities', JSON.stringify(this.favoritCities));
     this.store.dispatch(new FavoritesActions.RemoveFavorite(cityKey));
     this.toastr.info('Item removed');
   }
@@ -61,8 +58,8 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.favoritesSub != undefined) this.favoritesSub.unsubscribe();
     this.degreeTypeSub.unsubscribe();
+    if (this.favoritesSub != undefined) this.favoritesSub.unsubscribe();
     if (this.currCitySub != undefined) this.currCitySub.unsubscribe()
 
   }

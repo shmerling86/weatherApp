@@ -30,6 +30,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.degreeTypeSub.unsubscribe();
-    if (this.currCitySub != undefined) this.currCitySub.unsubscribe();
+    this.currCitySub.unsubscribe();
   }
 }

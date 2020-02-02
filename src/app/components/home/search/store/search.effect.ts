@@ -6,7 +6,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators'
 import { Actions, ofType, Effect } from '@ngrx/effects';
 import * as ResultsActions from './search.actions';
 
-import { MainService } from '../../../../services/main.service'
+import { MainService } from '../../../../services/api.service'
 import { AutoComplete } from 'src/app/interfaces/AutoComplete';
 
 

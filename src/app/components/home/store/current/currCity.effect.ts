@@ -6,7 +6,7 @@ import { switchMap, map, catchError } from 'rxjs/operators';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import * as CurrCityActions from './currCity.actions';
 
-import { MainService } from 'src/app/services/main.service';
+import { MainService } from 'src/app/services/api.service';
 import { CityWeather } from 'src/app/interfaces/CityWeather';
 
 @Injectable()
