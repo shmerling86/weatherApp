@@ -57,10 +57,14 @@
       }
     }
     .data{
-     
+     img{
+      width: 2em;
+     }
       span{
-        padding: 1em 0.5em;
-        font-size: 1.5em;
+        padding: 1em 0.2em;
+        @media (min-width: 415px) {
+          font-size: 1.5em;
+        }
       }
     }
   }
