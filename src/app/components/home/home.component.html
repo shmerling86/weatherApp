@@ -69,11 +69,12 @@
                     </span>
                     <b *ngIf='isDayForecast'>{{ day.Temperature.Maximum.Value }}°{{ day.Temperature.Maximum.Unit }}</b>
                     <b *ngIf='!isDayForecast'>{{ day.Temperature.Minimum.Value }}°{{ day.Temperature.Minimum.Unit }}</b>
-                    <div  class="more-info text-muted" *ngIf='isMoreInfoOpen'>
-                        <span class="more-info-item">RealFeel: {{day.RealFeelTemperature.Minimum.Value}}°
-                            <span *ngIf='isDayForecast'>{{ day.RealFeelTemperature.Maximum.Unit }}</span>
-                            <span *ngIf='!isDayForecast'>{{ day.RealFeelTemperature.Minimum.Unit }}</span>
+                    <div class="more-info text-muted" *ngIf='isMoreInfoOpen'>
+                        <span class="more-info-item" *ngIf='isDayForecast'>RealFeel:
+                            {{ day.RealFeelTemperature.Maximum.Value }}°{{ day.RealFeelTemperature.Maximum.Unit }}
                         </span>
+                        <span class="more-info-item" *ngIf='!isDayForecast'>RealFeel:
+                            {{ day.RealFeelTemperature.Minimum.Value }}°{{ day.RealFeelTemperature.Minimum.Unit }}</span>
                         <span class="more-info-item">Sun rise: {{day.Sun.Rise | date :'shortTime'}}</span>
                         <span class="more-info-item">Sun set: {{day.Sun.Set | date :'shortTime'}}</span>
                         <span class="more-info-item">Moon rise: {{day.Moon.Rise | date :'shortTime'}}</span>
