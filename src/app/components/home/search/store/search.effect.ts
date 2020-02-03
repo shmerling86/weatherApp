@@ -19,7 +19,6 @@ export class ResultsEffects {
             ofType<ResultsActions.SearchResults>(ResultsActions.SEARCH_RESULTS),
             mergeMap((typedText) => {
                 return this.http
-                    // .get<AutoComplete[]>("./assets/results.json")
                     .get<AutoComplete[]>(`https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${this.mainService.API}&q=${typedText.payload}&language=en-us`)
                     .pipe(map(data => { return new ResultsActions.SearchResultsSuccess(data) }),
                         catchError(error => of(new ResultsActions.SearchResultsFailure(error)))

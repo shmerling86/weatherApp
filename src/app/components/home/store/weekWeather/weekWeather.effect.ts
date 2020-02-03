@@ -19,7 +19,6 @@ export class WeekWeatherEffects {
             ofType<WeatherActions.WeekWeather>(WeatherActions.WEEK_WEATHER),
             mergeMap((city) => {
                 return this.http
-                    // .get<DailyForecasts[]>("./assets/weather.json")
                     .get<DailyForecasts[]>(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${city.payload.key}`,{
                         params:{
                             apikey: this.mainService.API,

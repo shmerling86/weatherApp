@@ -20,7 +20,6 @@ export class currCityByPositionEffects {
             return this.http
             .get<CityDataByPosition[]>('https://dataservice.accuweather.com/locations/v1/cities/geoposition/search',
                 { params: { apikey: this.mainService.API, q: `${city.payload[0]['lat']},${city.payload[0]['lon']}` } })
-                // .get<CityDataByPosition[]>("./assets/cityByPosition.json")
                 .pipe(
                     map(weatherByPosition => { return new CurrCityActionsByPosition.CurrCityByPositionSuccess(weatherByPosition) }),
                     catchError(error => {
