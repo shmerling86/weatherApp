@@ -17,16 +17,17 @@ export class WeekWeatherEffects {
     weekWeather$ = this.actions$
         .pipe(
             ofType<WeatherActions.WeekWeather>(WeatherActions.WEEK_WEATHER),
-            mergeMap((city) => {                                
+            mergeMap((city) => {
                 return this.http
-                .get<DailyForecasts[]>("./assets/weather.json")
-                // .get<DailyForecasts[]>(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${city.payload.key}`,{
-                //     params:{
-                //         apikey: this.mainService.API,
-                //         metric: String(city.payload.degreeType !== DegreeType.Celsius)
-                //     }
-                // })
-                .pipe(map(data => { return new WeatherActions.WeekWeatherSuccess(data) }),
+                    // .get<DailyForecasts[]>("./assets/weather.json")
+                    .get<DailyForecasts[]>(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${city.payload.key}`,{
+                        params:{
+                            apikey: this.mainService.API,
+                            details: 'true',
+                            metric: String(city.payload.degreeType !== DegreeType.Celsius)
+                        }
+                    })
+                    .pipe(map(data => { return new WeatherActions.WeekWeatherSuccess(data) }),
                         catchError(error => of(new WeatherActions.WeekWeatherFailure(error)))
                     )
             }

@@ -15,8 +15,8 @@ export class CurrCityEffects {
         ofType<CurrCityActions.CurrCity>(CurrCityActions.CURRENT_CITY),
         switchMap((city) => {
             return this.http
-                .get<CityWeather[]>("./assets/db.json")
-                // .get<CityWeather[]>(`https://dataservice.accuweather.com/currentconditions/v1/${city.payload[0]["key"]}?apikey=${this.mainService.API}`)
+                // .get<CityWeather[]>("./assets/db.json")
+                .get<CityWeather[]>(`https://dataservice.accuweather.com/currentconditions/v1/${city.payload[0]["key"]}?apikey=${this.mainService.API}`)
                 .pipe(
                     map(CityWeather => { return new CurrCityActions.CurrCitySuccess(CityWeather) }),
                     catchError(error => of(new CurrCityActions.CurrCityFailure(error)))

@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   degreeType: DegreeType;
   weekForecasts: DailyForecasts[] = [];
   degreeTypes = DegreeType;
+  isMoreInfoOpen: boolean = false;
   isDayForecast: boolean = true;
 
   weatherSub: Subscription;
@@ -121,8 +122,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
     }
   }
-  changeForecastView():void{
+  changeForecastView(): void {
     this.isDayForecast = !this.isDayForecast;
+  }
+
+  getMoreInfo(): void {
+    this.isMoreInfoOpen = !this.isMoreInfoOpen;
   }
 
   ngOnDestroy(): void {

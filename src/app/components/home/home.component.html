@@ -25,13 +25,10 @@
                 <p>Set local weather</p>
             </span>
             <div class="dropdown-divider"></div>
-            <span *ngIf='isDayForecast' (click)='changeForecastView()' class="dropdown-itemp">
-                <img src="https://img.icons8.com/ultraviolet/40/000000/moon.png">
-                <p>View night forecast</p>
-            </span>
-            <span *ngIf='!isDayForecast' (click)='changeForecastView()' class="dropdown-itemp">
-                <img src="https://img.icons8.com/ultraviolet/40/000000/sun.png">
-                <p>View day forecast</p>
+            <span (click)='changeForecastView()' class="dropdown-itemp">
+                <img [src]="(isDayForecast) ? 'https://img.icons8.com/ultraviolet/40/000000/moon.png' :
+                 'https://img.icons8.com/ultraviolet/40/000000/sun.png'">
+                <p>View {{ isDayForecast === true ? 'night' : 'day' }} forecast</p>
             </span>
         </div>
     </div>
@@ -44,36 +41,48 @@
                 {{ currCityWeather.Temperature.Metric.Value }}°C</span>
             <span class="text-muted" *ngIf='degreeType === degreeTypes.Celsius'>
                 {{ currCityWeather.Temperature.Imperial.Value }}°F</span>
-            <div class="mid-row" *ngIf="currCityWeather">
-                <p > {{ currCityWeather.WeatherText }} </p>
+            <div class="weatherText" *ngIf="currCityWeather">
+                <p> {{ currCityWeather.WeatherText }} </p>
             </div>
         </div>
         <div class="current-city">
             <div class="city-wrapper">
-                <p class="text-muted"> {{ currCityWeather.LocalObservationDateTime | date :'medium' }} </p>
+                <p class="text-muted">Last update: {{ currCityWeather.LocalObservationDateTime | date :'mediumTime' }}
+                </p>
                 <span>{{ currCityKey.name }}</span>
                 <img src="{{'assets/weatherIcons/' + currCityWeather.WeatherIcon}}-s.png">
             </div>
         </div>
     </div>
-    
+    <div class="dropdown-divider"></div>
     <div class="last-row" *ngIf="weekForecasts.length > 0">
         <div class="week">
             <div class="day" *ngFor='let day of weekForecasts'>
-                <div class="day-wrapper" *ngIf='isDayForecast'>
+                <div class="day-wrapper">
                     <span class="day-title">{{ getDays(day.Date) }}</span>
-                    <img src="{{'assets/weatherIcons/' + day.Day.Icon}}-s.png">
-                    <span class="weather-title text-muted">{{ day.Day.IconPhrase }}</span>
-                    <b>{{ day.Temperature.Maximum.Value }}°{{ day.Temperature.Maximum.Unit }}</b>
+                    <img src="{{'assets/weatherIcons/' + day.Day.Icon}}-s.png" *ngIf='isDayForecast'>
+                    <img src="{{'assets/weatherIcons/' + day.Night.Icon}}-s.png" *ngIf='!isDayForecast'>
+                    <span class="weather-title text-muted">
+                        {{(isDayForecast === true) ?
+                                day.Day.IconPhrase :
+                                day.Night.IconPhrase }}
+                    </span>
+                    <b *ngIf='isDayForecast'>{{ day.Temperature.Maximum.Value }}°{{ day.Temperature.Maximum.Unit }}</b>
+                    <b *ngIf='!isDayForecast'>{{ day.Temperature.Minimum.Value }}°{{ day.Temperature.Minimum.Unit }}</b>
+                    <div class="more-info text-muted" *ngIf='isMoreInfoOpen'>
+                        <span class="more-info-item">RealFeel: {{day.RealFeelTemperature.Minimum.Value}}</span>
+                        <span class="more-info-item">Sun rise: {{day.Sun.Rise | date :'shortTime'}}</span>
+                        <span class="more-info-item">Sun set: {{day.Sun.Set | date :'shortTime'}}</span>
+                        <span class="more-info-item">Moon rise: {{day.Moon.Rise | date :'shortTime'}}</span>
+                        <span class="more-info-item">Moon set: {{day.Moon.Set | date :'shortTime'}}</span>
+                        <span class="more-info-item">Rain chance: {{day.Day.PrecipitationProbability}}%</span>
+                    </div>
                 </div>
-                <div class="day-wrapper" *ngIf='!isDayForecast'>
-                    <span class="day-title">{{ getDays(day.Date) }}</span>
-                    <img src="{{'assets/weatherIcons/' + day.Night.Icon}}-s.png">
-                    <span class="weather-title text-muted">{{ day.Night.IconPhrase }}</span>
-                    <b>{{ day.Temperature.Minimum.Value }}°{{ day.Temperature.Minimum.Unit }}
-                    </b>
-                </div>
+
             </div>
         </div>
+        <span class="more-info-img" (click)='getMoreInfo()'>
+            {{isMoreInfoOpen === true ? 'Less info' : 'More info'}}
+        </span>
     </div>
 </div>
