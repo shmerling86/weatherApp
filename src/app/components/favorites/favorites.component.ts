@@ -10,7 +10,6 @@ import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { CityKey } from 'src/app/interfaces/CityKey';
 import { Favorite } from 'src/app/interfaces/Favorite';
-import { DegreeType } from 'src/app/enum/DegreeType.enum';
 
 @Component({
   selector: 'app-favorites',
@@ -20,11 +19,8 @@ import { DegreeType } from 'src/app/enum/DegreeType.enum';
 export class FavoritesComponent implements OnInit, OnDestroy {
 
   favoritCities: Favorite[] = JSON.parse(localStorage.getItem('favoriteCities')) || [];
-  degreeType: DegreeType;
-  degreeTypes = DegreeType;
   currCityKey: CityKey;
 
-  degreeTypeSub: Subscription;
   favoritesSub: Subscription;
   currCitySub: Subscription;
 
@@ -35,12 +31,12 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.degreeTypeSub = this.store.select('degreeType')
-      .subscribe((degreeType) => this.degreeType = degreeType.degreeType);
-      this.favoritesSub = this.store.select('favorites').subscribe((favorites) => { if (this.favoritCities.length === 0) this.favoritCities = favorites.favorites })
+    this.favoritesSub = this.store.select('favorites').subscribe((favorites) => {
+      if (this.favoritCities.length === 0) this.favoritCities = favorites.favorites
+    })
   }
 
-  removeFromFavorites(cityKey: string): void {
+  removefromFavorites(cityKey: string): void {
     this.favoritCities = this.favoritCities.filter((favorite) => cityKey !== favorite.city.key);
     localStorage.setItem('favoriteCities', JSON.stringify(this.favoritCities));
     this.store.dispatch(new FavoritesActions.RemoveFavorite(cityKey));
@@ -58,10 +54,8 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.degreeTypeSub.unsubscribe();
     if (this.favoritesSub != undefined) this.favoritesSub.unsubscribe();
-    if (this.currCitySub != undefined) this.currCitySub.unsubscribe()
-
+    if (this.currCitySub != undefined) this.currCitySub.unsubscribe();
   }
 
 

@@ -1,79 +1,68 @@
+.title {
+  font-size: 1.25em;
+  font-weight: bold;
+  text-align: center;
+}
 .favorites {
   display: flex;
   justify-content: center;
   flex-flow: row wrap;
   .favorite {
     display: flex;
-    flex-direction: column;
+    flex-direction: row-reverse;
     justify-content: space-between;
-    align-content: center;
-    text-align: center;
     padding: 1em;
-    width: 49%;
+    width: 32%;
     margin: 0.1em;
     box-shadow: 10px 10px 10px -13px rgba(0, 0, 0, 0.75);
     border-radius: 10px;
     @media (max-width: 415px) {
       width: 100%;
     }
-    .img-wrapper {
-      display: flex;
-      justify-content: flex-end;
-      cursor: pointer;
-
-      img {
-        width: 1.3em;
+    .options {
+      .dropdown {
+        .dropdown-menu {
+          opacity: 0.9;
+          .dropdown-itemp {
+            display: flex;
+            justify-content: flex-start;
+            cursor: pointer;
+            width: 13em;
+            padding: 0.4em 0;
+            @media (max-width: 415px) {
+              width: 11em;
+            }
+            img {
+              width: 1.5em;
+              height: 1.5em;
+              margin: 0 0.4em;
+            }
+            p {
+              opacity: 0.5;
+              margin: 0;
+              @media (max-width: 415px) {
+                font-size: 0.8em;
+              }
+            }
+            &:hover {
+              p {
+                opacity: 1;
+              }
+            }
+          }
+        }
+        img{
+          width: 1em;
+        }
       }
     }
-    .data-wrapper {
+    .data{
       display: flex;
-      flex-direction: column-reverse;
-      justify-content: space-between;
-      align-content: center;
-      b {
-        padding: 0 0 1em 0;
-      }
-      .img {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        img {
-          align-self: center;
-        }
-        button{
-          width: 50%;
-          align-self: center;
-        }
-      }
-      .data {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-content: center;
-        width: 100%;
-        @media (max-width: 415px) {
-          margin: 0;
-        }
-        // .isDayTime {
-        //   @media (max-width: 415px) {
-        //     display: none;
-        //   }
-        // }
-        // .precipitation {
-        //   @media (max-width: 415px) {
-        //     display: none;
-        //   }
-        // }
-
-        .text-muted {
-          font-size: 0.9em;
-        }
+      flex-direction: row;
+      span{
+        padding: 0 0.3em;
+        font-size: 2em;
       }
     }
   }
-}
-.title {
-  font-size: 1.25em;
-  font-weight: bold;
-  text-align: center;
 }
