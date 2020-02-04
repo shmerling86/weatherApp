@@ -14,7 +14,7 @@
     padding: 0.5em 1em ;
     width: 32%;
     margin: 0.1em;
-    box-shadow: 10px 10px 10px -13px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 10px -15px rgba(0, 0, 0, 0.75);
     border-radius: 10px;
     @media (max-width: 415px) {
       width: 100%;
@@ -28,7 +28,6 @@
             justify-content: flex-start;
             cursor: pointer;
             width: 13em;
-            padding: 0.4em 0;
             @media (max-width: 415px) {
               width: 11em;
             }
@@ -53,6 +52,9 @@
         }
         img{
           width: 1em;
+          @media (max-width: 415px) {
+            width: 0.7em;
+          }
         }
       }
     }
