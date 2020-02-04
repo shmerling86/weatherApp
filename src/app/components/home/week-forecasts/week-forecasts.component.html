@@ -1,0 +1,34 @@
+<div class="week-forecasts" *ngIf="weekForecasts.length > 0">
+    <div class="week">
+        <div class="day" *ngFor='let day of weekForecasts'>
+            <div class="day-wrapper">
+                <span class="day-title">{{ getDays(day.Date) }}</span>
+                <img src="{{'assets/weatherIcons/' + day.Day.Icon}}-s.png" *ngIf='isDayForecast'>
+                <img src="{{'assets/weatherIcons/' + day.Night.Icon}}-s.png" *ngIf='!isDayForecast'>
+                <span class="weather-title text-muted">
+                    {{(isDayForecast === true) ?
+                            day.Day.IconPhrase :
+                            day.Night.IconPhrase }}
+                </span>
+                <b *ngIf='isDayForecast'>{{ day.Temperature.Maximum.Value }}°{{ day.Temperature.Maximum.Unit }}</b>
+                <b *ngIf='!isDayForecast'>{{ day.Temperature.Minimum.Value }}°{{ day.Temperature.Minimum.Unit }}</b>
+                <div class="more-info text-muted" *ngIf='isMoreInfoOpen'>
+                    <span class="more-info-item" *ngIf='isDayForecast'>RealFeel:
+                        {{ day.RealFeelTemperature.Maximum.Value }}°{{ day.RealFeelTemperature.Maximum.Unit }}
+                    </span>
+                    <span class="more-info-item" *ngIf='!isDayForecast'>RealFeel:
+                        {{ day.RealFeelTemperature.Minimum.Value }}°{{ day.RealFeelTemperature.Minimum.Unit }}</span>
+                    <span class="more-info-item">Sun rise: {{day.Sun.Rise | date :'shortTime'}}</span>
+                    <span class="more-info-item">Sun set: {{day.Sun.Set | date :'shortTime'}}</span>
+                    <span class="more-info-item">Moon rise: {{day.Moon.Rise | date :'shortTime'}}</span>
+                    <span class="more-info-item">Moon set: {{day.Moon.Set | date :'shortTime'}}</span>
+                    <span class="more-info-item">Rain chance: {{day.Day.PrecipitationProbability}}%</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <span class="more-info-img" (click)='getMoreInfo()'>
+        {{isMoreInfoOpen === true ? 'Less info' : 'More info'}}
+    </span>
+</div>

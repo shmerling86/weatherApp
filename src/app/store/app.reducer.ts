@@ -22,8 +22,8 @@ export const appReducer: ActionReducerMap<AppState> = {
     router: routerReducer,
     favorites: fromFavorites.favoritesReducer,
     stackResults: fromResults.resultsReducer,
-    weekWeather: fromWeekWeather.weekReducer,
     currCity: fromCurrCity.currentCityReducer,
     currCityByPosition: fromCurrCityByPosition.currentCityReducer,
+    weekWeather: fromWeekWeather.weekReducer,
     degreeType: fromWeekWeather.weekReducer
 };

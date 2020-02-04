@@ -26,18 +26,15 @@ import { DegreeType } from 'src/app/enum/DegreeType.enum';
 export class HomeComponent implements OnInit, OnDestroy {
 
   favoritCities: Favorite[] = JSON.parse(localStorage.getItem('favoriteCities')) || [];
-  currCityKey: CityKey;
-  currCityWeather: CityWeather;
+  isDayForecast: boolean;
   degreeType: DegreeType;
-  weekForecasts: DailyForecasts[] = [];
   degreeTypes = DegreeType;
-  isMoreInfoOpen: boolean = false;
-  isDayForecast: boolean = true;
+  currCityKey: CityKey;
+  weekForecasts: DailyForecasts[] = [];
 
-  weatherSub: Subscription;
   currCitySub: Subscription;
+  weatherSub: Subscription;
   favoritesSub: Subscription;
-  degreeTypeSub: Subscription;
   currCityByPositionSub: Subscription;
 
   constructor(
@@ -47,31 +44,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.getCurrCity();
-    this.getDailyForecasts();
-  }
-
-  getCurrCity(): void {
     this.currCitySub = this.store.select('currCity').subscribe(defaultCity => {
       if (defaultCity.error !== undefined) this.toastr.error(defaultCity.error.message);
-      if (!defaultCity.isLoading && defaultCity.weather !== null) this.currCityWeather = defaultCity.weather[0];
       this.currCityKey = defaultCity.city[0];
     });
-    this.store.dispatch(new CurrCityActions.CurrCity([this.currCityKey]))
-  }
-
-  getDailyForecasts(): void {
-    this.degreeTypeSub = this.store.select('degreeType').subscribe((degreeType) => this.degreeType = degreeType.degreeType);
-    this.store.dispatch(new WeatherActions.WeekWeather({ key: this.currCityKey.key, degreeType: this.degreeType }));
-    this.weatherSub = this.store.select('weekWeather').subscribe(weekWeather => {
-      if (weekWeather.error !== undefined) this.toastr.error(weekWeather.error.message);
-      if (!weekWeather.isLoading && weekWeather.cityForecast != null) this.weekForecasts = weekWeather.cityForecast['DailyForecasts']
-    });
-  }
-
-  getDays(dateString): string {
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    return days[new Date(dateString).getDay()];
+    this.weatherSub = this.store.select('weekWeather').subscribe(res => {
+      this.isDayForecast = res.isDayForecast;
+    })
   }
 
   isAlreadyFavorite(cityKey: string): boolean {
@@ -84,7 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   addToFavorites(fName, fKey): void {
-    let favorite = { city: { name: fName, key: fKey }, weather: this.currCityWeather }
+    let favorite = { city: { name: fName, key: fKey } }
     this.favoritCities = [...this.favoritCities, favorite]
     localStorage.setItem('favoriteCities', JSON.stringify(this.favoritCities));
     this.store.dispatch(new FavoritesActions.AddFavorite(favorite))
@@ -123,19 +102,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
   changeForecastView(): void {
-    this.isDayForecast = !this.isDayForecast;
-  }
-
-  getMoreInfo(): void {
-    this.isMoreInfoOpen = !this.isMoreInfoOpen;
+    (this.isDayForecast) ?
+      this.store.dispatch(new WeatherActions.nightForecast) :
+      this.store.dispatch(new WeatherActions.dayForecast);
   }
 
   ngOnDestroy(): void {
-    this.currCitySub.unsubscribe();
-    this.degreeTypeSub.unsubscribe();
-    if (this.weatherSub != undefined) this.weatherSub.unsubscribe();
+    if (this.currCitySub != undefined) this.currCitySub.unsubscribe();
     if (this.favoritesSub != undefined) this.favoritesSub.unsubscribe();
     if (this.currCityByPositionSub != undefined) this.currCityByPositionSub.unsubscribe();
+    if (this.weatherSub != undefined) this.weatherSub.unsubscribe();
   }
 
 }

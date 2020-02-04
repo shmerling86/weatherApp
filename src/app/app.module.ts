@@ -25,6 +25,8 @@ import { ResultsEffects } from './components/home/search/store/search.effect';
 import { CurrCityEffects } from './components/home/store/current/currCity.effect';
 import { WeekWeatherEffects } from './components/home/store/weekWeather/weekWeather.effect';
 import { currCityByPositionEffects } from './components/home/store/currentByPosition/currentByPosition.effect';
+import { CityWeatherComponent } from './components/home/city-weather/city-weather.component';
+import { WeekForecastsComponent } from './components/home/week-forecasts/week-forecasts.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { currCityByPositionEffects } from './components/home/store/currentByPosi
     HomeComponent,
     FavoritesComponent,
     NavbarComponent,
-    SearchComponent
+    SearchComponent,
+    CityWeatherComponent,
+    WeekForecastsComponent
   ],
   imports: [
     CommonModule,

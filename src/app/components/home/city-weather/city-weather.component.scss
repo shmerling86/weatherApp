@@ -1,0 +1,52 @@
+.city-weather {
+    display: flex;
+    justify-content: space-between;
+    padding: 2em 0;
+    @media (max-width: 415px) {
+      flex-direction: column-reverse;
+    }
+    .current-data {
+      display: flex;
+      flex-direction: column;
+      .weatherText{
+        text-align: center;
+        p {
+          font-size: 2.5em;
+          @media (max-width: 415px) {
+            font-size: 1em;
+          }
+        }
+      }
+      span {
+        display: flex;
+        justify-content: center;
+        font-size: 4em;
+      }
+    }
+    .current-city {
+      display: flex;
+      flex-direction: column;
+      .city-wrapper {
+        text-align: center;
+        font-size: 2em;
+        p {
+          font-size: 0.5em;
+          @media (max-width: 415px) {
+            display: none;
+          }
+        }
+        img {
+          width: 3em;
+          @media (max-width: 415px) {
+            width: 2em;
+          }
+        }
+      }
+      img {
+        width: 2em;
+      }
+    }
+    @media (max-width: 415px) {
+      font-size: 0.8em;
+    }
+  }
