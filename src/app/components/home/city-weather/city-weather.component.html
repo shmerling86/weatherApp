@@ -1,19 +1,19 @@
-<div class="city-weather" *ngIf='currCityWeather != undefined && currCityWeather.Temperature != undefined'>
+<div class="city-weather" *ngIf='cityWeather != undefined && cityWeather.Temperature != undefined'>
     <div class="current-data">
         <span class="text-muted" *ngIf='degreeType !== degreeTypes.Celsius'>
-            {{ currCityWeather.Temperature.Metric.Value }}°C</span>
+            {{ cityWeather.Temperature.Metric.Value }}°C</span>
         <span class="text-muted" *ngIf='degreeType === degreeTypes.Celsius'>
-            {{ currCityWeather.Temperature.Imperial.Value }}°F</span>
-        <div class="weatherText" *ngIf="currCityWeather">
-            <p> {{ currCityWeather.WeatherText }} </p>
+            {{ cityWeather.Temperature.Imperial.Value }}°F</span>
+        <div class="weatherText" *ngIf="cityWeather">
+            <p> {{ cityWeather.WeatherText }} </p>
         </div>
     </div>
     <div class="current-city">
         <div class="city-wrapper">
-            <p class="text-muted">Last update: {{ currCityWeather.LocalObservationDateTime | date :'mediumTime' }}
+            <p class="text-muted">Last update: {{ cityWeather.LocalObservationDateTime | date :'mediumTime' }}
             </p>
             <span>{{ currCityKey.name }}</span>
-            <img src="{{'assets/weatherIcons/' + currCityWeather.WeatherIcon}}-s.png">
+            <img src="{{'assets/weatherIcons/' + cityWeather.WeatherIcon}}-s.png">
         </div>
     </div>
 </div>

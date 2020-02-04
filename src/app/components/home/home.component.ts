@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   degreeTypes = DegreeType;
   currCityKey: CityKey;
   weekForecasts: DailyForecasts[] = [];
+  currCityWeather: CityWeather;
 
   currCitySub: Subscription;
   weatherSub: Subscription;
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.currCitySub = this.store.select('currCity').subscribe(defaultCity => {
       if (defaultCity.error !== undefined) this.toastr.error(defaultCity.error.message);
+      if (!defaultCity.isLoading && defaultCity.weather !== null) this.currCityWeather = defaultCity.weather[0];
       this.currCityKey = defaultCity.city[0];
     });
     this.weatherSub = this.store.select('weekWeather').subscribe(res => {
