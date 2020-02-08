@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   weatherSub: Subscription;
   favoritesSub: Subscription;
   currCityByPositionSub: Subscription;
+  degreeTypeSub: Subscription;
 
   constructor(
     public router: Router,
@@ -45,6 +46,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.degreeTypeSub = this.store.select('degreeType').subscribe((degreeType) => this.degreeType = degreeType.degreeType);
     this.currCitySub = this.store.select('currCity').subscribe(defaultCity => {
       if (defaultCity.error !== undefined) this.toastr.error(defaultCity.error.message);
       if (!defaultCity.isLoading && defaultCity.weather !== null) this.currCityWeather = defaultCity.weather[0];
@@ -52,7 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
     this.weatherSub = this.store.select('weekWeather').subscribe(res => {
       this.isDayForecast = res.isDayForecast;
-    })
+    });
   }
 
   isAlreadyFavorite(cityKey: string): boolean {
@@ -65,11 +67,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   addToFavorites(fName, fKey): void {
-    let favorite = { city: { name: fName, key: fKey } }
-    this.favoritCities = [...this.favoritCities, favorite]
+    let favorite = { city: { name: fName, key: fKey } };
+    this.favoritCities = [...this.favoritCities, favorite];
     localStorage.setItem('favoriteCities', JSON.stringify(this.favoritCities));
-    this.store.dispatch(new FavoritesActions.AddFavorite(favorite))
-    this.toastr.info(`${fName} added to favorites`)
+    this.store.dispatch(new FavoritesActions.AddFavorite(favorite));
+    this.toastr.info(`${fName} added to favorites`);
   }
 
   removefromFavorites(cityKey: string): void {
@@ -88,7 +90,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.store.dispatch(new CurrCityByPositionActions.CurrCityByPosition(
-          [{ lat: position.coords.latitude, lon: position.coords.longitude }]))
+          [{ lat: position.coords.latitude, lon: position.coords.longitude }]));
         this.currCityByPositionSub = this.store.select('currCityByPosition').subscribe(
           defaultCity => {
             if (!defaultCity.isLoading && defaultCity.cityDataByPosition !== null) {
@@ -103,6 +105,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
     }
   }
+
   changeForecastView(): void {
     (this.isDayForecast) ?
       this.store.dispatch(new WeatherActions.nightForecast) :
@@ -114,6 +117,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.favoritesSub != undefined) this.favoritesSub.unsubscribe();
     if (this.currCityByPositionSub != undefined) this.currCityByPositionSub.unsubscribe();
     if (this.weatherSub != undefined) this.weatherSub.unsubscribe();
+    if (this.degreeTypeSub != undefined) this.degreeTypeSub.unsubscribe();
+
+
   }
 
 }

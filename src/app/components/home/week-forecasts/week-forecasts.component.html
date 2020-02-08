@@ -16,12 +16,12 @@
                     <span class="more-info-item" *ngIf='isDayForecast'>RealFeel:
                         {{ day.RealFeelTemperature.Maximum.Value }}°{{ day.RealFeelTemperature.Maximum.Unit }}
                     </span>
-                    <span class="more-info-item" *ngIf='!isDayForecast'>RealFeel:
+                    <span class="more-info-item" *ngIf='!isDayForecast'>Feel like:
                         {{ day.RealFeelTemperature.Minimum.Value }}°{{ day.RealFeelTemperature.Minimum.Unit }}</span>
-                    <span class="more-info-item">Sun rise: {{day.Sun.Rise | date :'shortTime'}}</span>
-                    <span class="more-info-item">Sun set: {{day.Sun.Set | date :'shortTime'}}</span>
-                    <span class="more-info-item">Moon rise: {{day.Moon.Rise | date :'shortTime'}}</span>
-                    <span class="more-info-item">Moon set: {{day.Moon.Set | date :'shortTime'}}</span>
+                    <span class="more-info-item">Sun (rise): {{day.Sun.Rise | date :'shortTime'}}</span>
+                    <span class="more-info-item">Sun (set): {{day.Sun.Set | date :'shortTime'}}</span>
+                    <span class="more-info-item">Moon (rise): {{day.Moon.Rise | date :'shortTime'}}</span>
+                    <span class="more-info-item">Moon (set): {{day.Moon.Set | date :'shortTime'}}</span>
                     <span class="more-info-item">Rain chance: {{day.Day.PrecipitationProbability}}%</span>
                 </div>
             </div>
