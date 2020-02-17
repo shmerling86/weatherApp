@@ -13,7 +13,7 @@
                 <b *ngIf='isDayForecast'>{{ day.Temperature.Maximum.Value }}°{{ day.Temperature.Maximum.Unit }}</b>
                 <b *ngIf='!isDayForecast'>{{ day.Temperature.Minimum.Value }}°{{ day.Temperature.Minimum.Unit }}</b>
                 <div class="more-info text-muted" *ngIf='isMoreInfoOpen'>
-                    <span class="more-info-item" *ngIf='isDayForecast'>Feel like:
+                    <span class="more-info-item" *ngIf='isDayForecast'>Feels like:
                         {{ day.RealFeelTemperature.Maximum.Value }}°{{ day.RealFeelTemperature.Maximum.Unit }}
                     </span>
                     <span class="more-info-item" *ngIf='!isDayForecast'>Feels like:
