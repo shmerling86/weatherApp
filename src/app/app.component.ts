@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
-import { MainService } from './services/api.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,10 +17,12 @@ import { MainService } from './services/api.service';
   ]
 
 })
+
 export class AppComponent {
 
   title = 'weatherApp';
 
-  constructor(private mainService: MainService) { }
-
+  constructor() { }
+ 
+ 
 }

@@ -1,24 +1,19 @@
 nav {
-    position: sticky;
-    #nav {
-      ul {
-        li {
-          a {
-            color: rgba(165, 165, 165, 0.7);
-            &:hover {
-              color: #fff;
-            }
-          }
-          a.active {
-            color: #fff;
-          }
-        }
-      }
+  position: sticky;
+  a {
+    img {
+      width: 2em;
     }
-    a {
-      img {
-        width: 2em;
+  }
+  .nav-item {
+    .nav-link {
+      color: rgba(165, 165, 165, 0.7);
+      &:hover {
+        color: #fff;
+      }
+      &.active {
+        color: #fff;
       }
     }
   }
-  
+}

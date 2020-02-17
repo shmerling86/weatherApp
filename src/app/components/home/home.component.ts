@@ -23,6 +23,7 @@ import { DegreeType } from 'src/app/enum/DegreeType.enum';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent implements OnInit, OnDestroy {
 
   favoritCities: Favorite[] = JSON.parse(localStorage.getItem('favoriteCities')) || [];
@@ -118,8 +119,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.currCityByPositionSub != undefined) this.currCityByPositionSub.unsubscribe();
     if (this.weatherSub != undefined) this.weatherSub.unsubscribe();
     if (this.degreeTypeSub != undefined) this.degreeTypeSub.unsubscribe();
-
-
   }
 
 }

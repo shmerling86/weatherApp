@@ -16,7 +16,7 @@
                     <span class="more-info-item" *ngIf='isDayForecast'>Feel like:
                         {{ day.RealFeelTemperature.Maximum.Value }}°{{ day.RealFeelTemperature.Maximum.Unit }}
                     </span>
-                    <span class="more-info-item" *ngIf='!isDayForecast'>Feel like:
+                    <span class="more-info-item" *ngIf='!isDayForecast'>Feels like:
                         {{ day.RealFeelTemperature.Minimum.Value }}°{{ day.RealFeelTemperature.Minimum.Unit }}</span>
                         <span class="more-info-item">Rain chance: {{day.Day.PrecipitationProbability}}%</span>
                     <span class="more-info-item">Sun (rise): {{day.Sun.Rise | date :'shortTime'}}</span>
