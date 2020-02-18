@@ -40,10 +40,10 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     this.toastr.info('Item removed');
   }
 
-  setCityWeather(cityKey: CityKeys): void {
-    this.store.dispatch(new CurrCityActions.CurrCity([cityKey]));
+  setCityWeather(cityKeys: CityKeys): void {
+    this.store.dispatch(new CurrCityActions.CurrCity([cityKeys]));
     this.router.navigate(['/home']);
-    this.toastr.success(`Weather in ${cityKey.name} is selected`);
+    this.toastr.success(`Weather in ${cityKeys.name} is selected`);
   }
 
   ngOnDestroy(): void {
