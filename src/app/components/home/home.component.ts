@@ -12,7 +12,7 @@ import * as FavoritesActions from '../favorites/store/favorites.action';
 import { ToastrService } from 'ngx-toastr';
 
 import { DailyForecasts } from 'src/app/interfaces/DailyForecasts';
-import { CityKey } from 'src/app/interfaces/CityKey';
+import { CityKeys } from 'src/app/interfaces/CityKeys';
 import { CityWeather } from 'src/app/interfaces/CityWeather';
 import { Favorite } from 'src/app/interfaces/Favorite';
 import { DegreeType } from 'src/app/enum/DegreeType.enum';
@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   isDayForecast: boolean;
   degreeType: DegreeType;
   degreeTypes = DegreeType;
-  currCityKey: CityKey;
+  currCityKey: CityKeys;
   weekForecasts: DailyForecasts[] = [];
   currCityWeather: CityWeather;
 

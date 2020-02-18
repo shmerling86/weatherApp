@@ -9,7 +9,7 @@ import * as WeatherActions from '../store/weekWeather/weekWeather.actions';
 import { DegreeType } from 'src/app/enum/DegreeType.enum';
 import { ToastrService } from 'ngx-toastr';
 import { DailyForecasts } from 'src/app/interfaces/DailyForecasts';
-import { CityKey } from 'src/app/interfaces/CityKey';
+import { CityKeys } from 'src/app/interfaces/CityKeys';
 
 @Component({
   selector: 'week-forecasts',
@@ -19,7 +19,7 @@ import { CityKey } from 'src/app/interfaces/CityKey';
 export class WeekForecastsComponent implements OnInit, OnDestroy {
 
   @Input() weekForecasts: DailyForecasts[];
-  currCityKey: CityKey;
+  currCityKey: CityKeys;
   degreeType: DegreeType;
   degreeTypes = DegreeType;
   isMoreInfoOpen: boolean;

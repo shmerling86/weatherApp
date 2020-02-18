@@ -1,12 +1,12 @@
 import * as CurrCityActions from '../current/currCity.actions';
-import { CityKey } from 'src/app/interfaces/CityKey';
+import { CityKeys } from 'src/app/interfaces/CityKeys';
 import { CityWeather } from 'src/app/interfaces/CityWeather';
 
 
 export type Action = CurrCityActions.All;
 
 export interface currentCityState {
-    city: CityKey[],
+    city: CityKeys[],
     weather: CityWeather[],
     isLoading: boolean,
     error: Error

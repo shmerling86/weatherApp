@@ -1,5 +1,5 @@
-import { CityKey } from 'src/app/interfaces/CityKey';
+import { CityKeys } from 'src/app/interfaces/CityKeys';
 
 export interface Favorite {
-    city: CityKey,
+    city: CityKeys,
 }

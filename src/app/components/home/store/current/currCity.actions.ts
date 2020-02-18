@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { CityKey } from 'src/app/interfaces/CityKey';
+import { CityKeys } from 'src/app/interfaces/CityKeys';
 import { CityWeather } from 'src/app/interfaces/CityWeather';
 
 
@@ -9,7 +9,7 @@ export const CURRENT_CITY_FAILURE = '[CITY] CURRENT_CITY_FAILURE';
 
 export class CurrCity implements Action {
     readonly type = CURRENT_CITY;
-    constructor(public payload: CityKey[]) { }
+    constructor(public payload: CityKeys[]) { }
 }
 
 export class CurrCitySuccess implements Action {

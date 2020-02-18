@@ -7,7 +7,7 @@ import * as fromApp from '../../../store/app.reducer';
 import * as CurrCityActions from '../store/current/currCity.actions';
 
 import { CityWeather } from 'src/app/interfaces/CityWeather';
-import { CityKey } from 'src/app/interfaces/CityKey';
+import { CityKeys } from 'src/app/interfaces/CityKeys';
 import { DailyForecasts } from 'src/app/interfaces/DailyForecasts';
 import { ToastrService } from 'ngx-toastr';
 import { DegreeType } from 'src/app/enum/DegreeType.enum';
@@ -21,7 +21,7 @@ export class CityWeatherComponent implements  OnInit, OnDestroy {
 
   @Input() cityWeather: CityWeather;
   
-  currCityKey: CityKey;
+  currCityKey: CityKeys;
   weekForecasts: DailyForecasts[] = [];
   degreeType: DegreeType;
   degreeTypes = DegreeType;

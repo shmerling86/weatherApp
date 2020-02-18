@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as FavoritesActions from '../favorites/store/favorites.action';
 import * as CurrCityActions from '../../components/home/store/current/currCity.actions';
-import { Subscription } from 'rxjs';
 
 import { ToastrService } from 'ngx-toastr';
-import { CityKey } from 'src/app/interfaces/CityKey';
+import { CityKeys } from 'src/app/interfaces/CityKeys';
 import { Favorite } from 'src/app/interfaces/Favorite';
 
 @Component({
@@ -19,10 +19,7 @@ import { Favorite } from 'src/app/interfaces/Favorite';
 export class FavoritesComponent implements OnInit, OnDestroy {
 
   favoritCities: Favorite[] = JSON.parse(localStorage.getItem('favoriteCities')) || [];
-  currCityKey: CityKey;
-
   favoritesSub: Subscription;
-  currCitySub: Subscription;
 
   constructor(
     public router: Router,
@@ -43,11 +40,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     this.toastr.info('Item removed');
   }
 
-  setCityWeather(cityKey: CityKey): void {
-    this.currCitySub = this.store.select('currCity').subscribe(defaultCity => {
-      if (defaultCity.error !== undefined) this.toastr.error(defaultCity.error.message);
-      this.currCityKey = defaultCity.city[0];
-    });
+  setCityWeather(cityKey: CityKeys): void {
     this.store.dispatch(new CurrCityActions.CurrCity([cityKey]));
     this.router.navigate(['/home']);
     this.toastr.success(`Weather in ${cityKey.name} is selected`);
@@ -55,7 +48,6 @@ export class FavoritesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.favoritesSub != undefined) this.favoritesSub.unsubscribe();
-    if (this.currCitySub != undefined) this.currCitySub.unsubscribe();
   }
 
 
