@@ -13,16 +13,20 @@
                 <b *ngIf='isDayForecast'>{{ day.Temperature.Maximum.Value }}°{{ day.Temperature.Maximum.Unit }}</b>
                 <b *ngIf='!isDayForecast'>{{ day.Temperature.Minimum.Value }}°{{ day.Temperature.Minimum.Unit }}</b>
                 <div class="more-info text-muted" *ngIf='isMoreInfoOpen'>
-                    <span class="more-info-item" *ngIf='isDayForecast'>Feels like:
-                        {{ day.RealFeelTemperature.Maximum.Value }}°{{ day.RealFeelTemperature.Maximum.Unit }}
-                    </span>
-                    <span class="more-info-item" *ngIf='!isDayForecast'>Feels like:
-                        {{ day.RealFeelTemperature.Minimum.Value }}°{{ day.RealFeelTemperature.Minimum.Unit }}</span>
+                    <div>
+                        <span class="more-info-item" *ngIf='isDayForecast'>Feels like:
+                            {{ day.RealFeelTemperature.Maximum.Value }}°{{ day.RealFeelTemperature.Maximum.Unit }}
+                        </span>
+                        <span class="more-info-item" *ngIf='!isDayForecast'>Feels like:
+                            {{ day.RealFeelTemperature.Minimum.Value }}°{{ day.RealFeelTemperature.Minimum.Unit }}</span>
                         <span class="more-info-item">Rain chance: {{day.Day.PrecipitationProbability}}%</span>
-                    <span class="more-info-item">Sun (rise): {{day.Sun.Rise | date :'shortTime'}}</span>
-                    <span class="more-info-item">Sun (set): {{day.Sun.Set | date :'shortTime'}}</span>
-                    <span class="more-info-item">Moon (rise): {{day.Moon.Rise | date :'shortTime'}}</span>
-                    <span class="more-info-item">Moon (set): {{day.Moon.Set | date :'shortTime'}}</span>
+                        <span class="more-info-item">Sun(rise): {{day.Sun.Rise | date :'shortTime'}}</span>
+                    </div>
+                    <div>
+                        <span class="more-info-item">Sun(set): {{day.Sun.Set | date :'shortTime'}}</span>
+                        <span class="more-info-item">Moon(rise): {{day.Moon.Rise | date :'shortTime'}}</span>
+                        <span class="more-info-item">Moon(set): {{day.Moon.Set | date :'shortTime'}}</span>
+                    </div>
                 </div>
             </div>
 

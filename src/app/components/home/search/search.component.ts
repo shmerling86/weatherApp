@@ -21,7 +21,7 @@ import { AutoComplete } from 'src/app/interfaces/AutoComplete';
 })
 
 export class SearchComponent implements OnInit, OnDestroy {
-  
+
   typedSearchForm: FormGroup;
   stackResults: AutoComplete[];
   degreeType: DegreeType;
@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     private store: Store<fromApp.AppState>
   ) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.typedSearchForm = new FormGroup({ typedSearch: new FormControl() });
     this.store.select('degreeType').subscribe((degreeType) => this.degreeType = degreeType.degreeType)
   }
@@ -47,10 +47,12 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   getCitiesWeather(typedText): void {
-    (typedText) ? this.store.dispatch(new ResultsActions.SearchResults(typedText)) : this.stackResults = [];
+    this.store.dispatch(new ResultsActions.SearchResults(typedText))
+    // (typedText !== '') ? this.store.dispatch(new ResultsActions.SearchResults(typedText)) : this.stackResults = [];
     this.resultSub = this.store.select('stackResults').subscribe(stackResult => {
       if (stackResult.error !== undefined) this.toastr.error(stackResult.error.message);
-      if (!stackResult.isLoading) this.stackResults = stackResult.list});
+      if (!stackResult.isLoading) this.stackResults = stackResult.list
+    });
   }
 
   checkLang(event: KeyboardEvent): boolean {

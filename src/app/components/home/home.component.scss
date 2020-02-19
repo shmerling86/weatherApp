@@ -3,8 +3,17 @@
   flex-direction: row-reverse;
   img {
     width: 2em;
+    @media (max-width: 415px) {
+      width: 1em;
+    }
   }
   .dropdown {
+    img {
+      margin: 0 5em;
+      @media (max-width: 415px) {
+        margin: 0 1em;
+      }
+    }
     .dropdown-menu {
       opacity: 0.9;
       .dropdown-itemp {
