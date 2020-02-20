@@ -1,33 +1,33 @@
 <app-search></app-search>
 <div class="options">
     <div class="dropdown">
-        <img src="https://img.icons8.com/android/24/000000/more.png" id="dropdownMenuButton" data-toggle="dropdown"
+        <img src="../../../assets/homeIcons/more.png" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
             <span *ngIf='!isAlreadyFavorite(currCityKey.key)'
                 (click)='addToFavorites(currCityKey.name, currCityKey.key)' class="dropdown-itemp">
-                <img src="https://img.icons8.com/material-outlined/40/000000/hearts.png">
+                <img src="../../../assets/homeIcons/hearts.png">
                 <p>Add to Favorites</p>
             </span>
             <span *ngIf='isAlreadyFavorite(currCityKey.key)' (click)='removefromFavorites(currCityKey.key)'
                 class="dropdown-itemp">
-                <img src="https://img.icons8.com/material/40/e74c3c/hearts--v1.png">
+                <img src="../../../assets/homeIcons/hearts--v1.png">
                 <p>Remove from Favorites</p>
             </span>
             <div class="dropdown-divider"></div>
             <span (click)='switchDegreeMode()' class="dropdown-itemp">
-                <img src="https://img.icons8.com/ultraviolet/40/000000/thermometer.png">
+                <img src="../../../assets/homeIcons/thermometer.png">
                 <p>Switch to {{ degreeType === degreeTypes.Celsius ? 'Celsius' : 'Fahrenheit' }}</p>
             </span>
             <div class="dropdown-divider"></div>
             <span (click)='switchToGpsCity()' class="dropdown-itemp">
-                <img src="https://img.icons8.com/offices/40/000000/worldwide-location.png">
+                <img src="../../../assets/homeIcons/worldwide-location.png">
                 <p>Set local weather</p>
             </span>
             <div class="dropdown-divider"></div>
             <span (click)='changeForecastView()' class="dropdown-itemp">
-                <img [src]="(isDayForecast) ? 'https://img.icons8.com/ultraviolet/40/000000/moon.png' :
-                'https://img.icons8.com/ultraviolet/40/000000/sun.png'">
+                <img [src]="(isDayForecast) ? '../../../assets/homeIcons/moon.png' :
+                '../../../assets/homeIcons/sun.png'">
                 <p>View {{ isDayForecast === true ? 'night' : 'day' }} forecast</p>
             </span>
         </div>
