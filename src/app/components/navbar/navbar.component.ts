@@ -14,10 +14,10 @@ export class NavbarComponent implements OnInit {
   }
 
   @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
-    let myTag = this.el.nativeElement.querySelector(".collapse");
-    if (document.documentElement.scrollTop === 1 && myTag.classList.contains('show')) {
+    let myTag = this.el.nativeElement.querySelector('#nav')    
+    if (document.documentElement.scrollTop >= 1) {
       myTag.classList.remove('show');
     }
-
   }
+  
 }
