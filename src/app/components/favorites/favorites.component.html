@@ -6,24 +6,24 @@
         <div class="favorite" *ngFor='let favorite of favoritCities'>
             <div class="options">
                 <div class="dropdown">
-                    <img src="../../../assets/favIcons/menu-2.png" id="dropdownMenuButton"
+                    <img src="../../src/assets/favIcons/menu-2.png" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <span (click)='removefromFavorites(favorite.city.key)' class="dropdown-itemp">
-                            <img src="../../../assets/favIcons/hearts--v1.png">
+                            <img src="../../src/assets/favIcons/hearts--v1.png">
                             <p>Remove</p>
                         </span>
                         <div class="dropdown-divider"></div>
                         <span (click)='setCityWeather({name: favorite.city.name, key: favorite.city.key})'
                             class="dropdown-itemp">
-                            <img src='../../../assets/favIcons/sun.png'>
+                            <img src='../../src/assets/favIcons/sun.png'>
                             <p>Select</p>
                         </span>
                     </div>
                 </div>
             </div>
             <div class="data">
-                <img src="../../../assets/favIcons/city.png">
+                <img src="../../src/assets/favIcons/city.png">
                 <span>{{ favorite.city.name }}</span>
             </div>
         </div>
