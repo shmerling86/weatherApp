@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
@@ -19,10 +19,10 @@ import { DegreeType } from 'src/app/enum/DegreeType.enum';
 })
 export class CityWeatherComponent implements  OnInit, OnDestroy {
 
-  @Input() cityWeather: CityWeather;
-  
-  currCityKey: CityKeys;
+  cityWeather: CityWeather;
   weekForecasts: DailyForecasts[] = [];
+    
+  currCity: CityKeys;
   degreeType: DegreeType;
   degreeTypes = DegreeType;
   
@@ -44,9 +44,10 @@ export class CityWeatherComponent implements  OnInit, OnDestroy {
   getCurrCity(): void {
     this.currCitySub = this.store.select('currCity').subscribe(defaultCity => {
       if (defaultCity.error !== undefined) this.toastr.error(defaultCity.error.message);
-      this.currCityKey = defaultCity.city[0];
+      if (!defaultCity.isLoading && defaultCity.weather !== null) this.cityWeather = defaultCity.weather[0];
+      this.currCity = defaultCity.city[0];
     });
-    this.store.dispatch(new CurrCityActions.CurrCity([this.currCityKey]))
+    this.store.dispatch(new CurrCityActions.CurrCity([this.currCity]))
   }
 
   ngOnDestroy(): void {

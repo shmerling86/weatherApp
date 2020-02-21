@@ -18,12 +18,13 @@ import { CityKeys } from 'src/app/interfaces/CityKeys';
 })
 export class WeekForecastsComponent implements OnInit, OnDestroy {
 
-  @Input() weekForecasts: DailyForecasts[];
-  currCityKey: CityKeys;
+  weekForecasts: DailyForecasts[] = [];
+  currCity: CityKeys;
   degreeType: DegreeType;
   degreeTypes = DegreeType;
   isMoreInfoOpen: boolean;
   isDayForecast: boolean;
+  
   degreeTypeSub: Subscription;
   weatherSub: Subscription;
   currCitySub: Subscription;
@@ -35,31 +36,31 @@ export class WeekForecastsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.currCitySub = this.store.select('currCity').subscribe(defaultCity => {
-      if (defaultCity.error !== undefined) this.toastr.error(defaultCity.error.message);
-      this.currCityKey = defaultCity.city[0];
-    });
     this.weatherSub = this.store.select('weekWeather').subscribe(res => {
       this.isMoreInfoOpen = res.isMoreInfoOpen;
       this.isDayForecast = res.isDayForecast;
     })
     this.getDailyForecasts();
   }
-
+  
   getDays(dateString): string {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     return days[new Date(dateString).getDay()];
   }
-
+  
   getMoreInfo(): void {
     (this.isMoreInfoOpen) ?
-      this.store.dispatch(new WeatherActions.moreInfoOff) :
-      this.store.dispatch(new WeatherActions.moreInfoOn);
+    this.store.dispatch(new WeatherActions.moreInfoOff) :
+    this.store.dispatch(new WeatherActions.moreInfoOn);
   }
-
+  
   getDailyForecasts(): void {
+    this.currCitySub = this.store.select('currCity').subscribe(defaultCity => {
+      if (defaultCity.error !== undefined) this.toastr.error(defaultCity.error.message);
+      this.currCity = defaultCity.city[0];
+    });
     this.degreeTypeSub = this.store.select('degreeType').subscribe((degreeType) => this.degreeType = degreeType.degreeType);
-    this.store.dispatch(new WeatherActions.WeekWeather({ key: this.currCityKey.key, degreeType: this.degreeType }));
+    this.store.dispatch(new WeatherActions.WeekWeather({ key: this.currCity.key, degreeType: this.degreeType }));
     this.weatherSub = this.store.select('weekWeather').subscribe(weekWeather => {
       if (weekWeather.error !== undefined) this.toastr.error(weekWeather.error.message);
       if (!weekWeather.isLoading && weekWeather.cityForecast != null) this.weekForecasts = weekWeather.cityForecast['DailyForecasts']

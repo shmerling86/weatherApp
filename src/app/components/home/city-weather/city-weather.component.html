@@ -12,8 +12,9 @@
         <div class="city-wrapper">
             <p class="text-muted">Last update: {{ cityWeather.LocalObservationDateTime | date :'mediumTime' }}
             </p>
-            <span>{{ currCityKey.name }}</span>
+            <span>{{ currCity.name }}</span>
             <img src="{{'assets/weatherIcons/' + cityWeather.WeatherIcon}}-s.png">
         </div>
     </div>
 </div>
+<div class="dropdown-divider"></div>

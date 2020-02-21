@@ -1,0 +1,49 @@
+.options {
+    display: flex;
+    flex-direction: row-reverse;
+    img {
+      width: 2em;
+      @media (max-width: 415px) {
+        width: 1em;
+      }
+    }
+    .dropdown {
+      img {
+        margin: 0 5em;
+        @media (max-width: 415px) {
+          margin: 0 1em;
+        }
+      }
+      .dropdown-menu {
+        opacity: 0.9;
+        .dropdown-itemp {
+          display: flex;
+          justify-content: flex-start;
+          cursor: pointer;
+          width: 13em;
+          padding: 0.4em 0;
+          @media (max-width: 415px) {
+            width: 11em;
+          }
+          img {
+            width: 1.5em;
+            height: 1.5em;
+            margin: 0 0.4em;
+          }
+          p {
+            opacity: 0.5;
+            margin: 0;
+            @media (max-width: 415px) {
+              font-size: 0.8em;
+            }
+          }
+          &:hover {
+            p {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+  

@@ -27,6 +27,7 @@ import { WeekWeatherEffects } from './components/home/store/weekWeather/weekWeat
 import { currCityByPositionEffects } from './components/home/store/currentByPosition/currentByPosition.effect';
 import { CityWeatherComponent } from './components/home/city-weather/city-weather.component';
 import { WeekForecastsComponent } from './components/home/week-forecasts/week-forecasts.component';
+import { HomeMenuComponent } from './components/home/home-menu/home-menu.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { WeekForecastsComponent } from './components/home/week-forecasts/week-fo
     NavbarComponent,
     SearchComponent,
     CityWeatherComponent,
-    WeekForecastsComponent
+    WeekForecastsComponent,
+    HomeMenuComponent
   ],
   imports: [
     CommonModule,
