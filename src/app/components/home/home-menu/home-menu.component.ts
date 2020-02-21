@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -35,7 +34,6 @@ export class HomeMenuComponent implements OnInit, OnDestroy {
   currCitySub: Subscription;
 
   constructor(
-    public router: Router,
     private toastr: ToastrService,
     private store: Store<fromApp.AppState>
   ) { }
@@ -44,7 +42,6 @@ export class HomeMenuComponent implements OnInit, OnDestroy {
     this.degreeTypeSub = this.store.select('degreeType').subscribe((degreeType) => this.degreeType = degreeType.degreeType);
     this.currCitySub = this.store.select('currCity').subscribe(defaultCity => {
       if (defaultCity.error !== undefined) this.toastr.error(defaultCity.error.message);
-      // if (!defaultCity.isLoading && defaultCity.weather !== null) this.currCityWeather = defaultCity.weather[0];
       this.currCity = defaultCity.city[0];
     });
     this.weatherSub = this.store.select('weekWeather').subscribe(res => {

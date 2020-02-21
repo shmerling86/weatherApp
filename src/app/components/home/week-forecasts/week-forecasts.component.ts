@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -30,7 +29,6 @@ export class WeekForecastsComponent implements OnInit, OnDestroy {
   currCitySub: Subscription;
 
   constructor(
-    public router: Router,
     private toastr: ToastrService,
     private store: Store<fromApp.AppState>
   ) { }

@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -31,7 +30,6 @@ export class CityWeatherComponent implements  OnInit, OnDestroy {
   degreeTypeSub: Subscription;
   
   constructor(
-    public router: Router,
     private toastr: ToastrService,
     private store: Store<fromApp.AppState>
   ) { }

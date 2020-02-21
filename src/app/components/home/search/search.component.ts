@@ -48,7 +48,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   getCitiesWeather(typedText): void {
     this.store.dispatch(new ResultsActions.SearchResults(typedText))
-    // (typedText !== '') ? this.store.dispatch(new ResultsActions.SearchResults(typedText)) : this.stackResults = [];
     this.resultSub = this.store.select('stackResults').subscribe(stackResult => {
       if (stackResult.error !== undefined) this.toastr.error(stackResult.error.message);
       if (!stackResult.isLoading) this.stackResults = stackResult.list
