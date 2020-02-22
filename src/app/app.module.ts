@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MatDialog  } from '@angular/material/dialog';
 
 
 import { StoreModule } from '@ngrx/store';
@@ -55,9 +55,7 @@ import { DetailsComponent } from './components/favorites/details/details.compone
     ToastrModule.forRoot(),
     StoreModule.forRoot(fromApp.appReducer),
     EffectsModule.forRoot([ResultsEffects, CurrCityEffects, currCityByPositionEffects, WeekWeatherEffects]),
-    StoreDevtoolsModule.instrument({
-      maxAge: 10
-    }),
+    StoreDevtoolsModule.instrument({maxAge: 10 }),
     MatDialogModule,
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
   ],

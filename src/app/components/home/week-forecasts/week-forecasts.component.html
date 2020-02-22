@@ -3,6 +3,7 @@
         <div class="day" *ngFor='let day of weekForecasts'>
             <div class="day-wrapper">
                 <span class="day-title">{{ getDays(day.Date) }}</span>
+                <span class="text-muted">{{ day.Date | date :'d/M/yyyy' }}</span>
                 <img src="{{'assets/weatherIcons/' + day.Day.Icon}}-s.png" *ngIf='isDayForecast'>
                 <img src="{{'assets/weatherIcons/' + day.Night.Icon}}-s.png" *ngIf='!isDayForecast'>
                 <span class="weather-title text-muted">

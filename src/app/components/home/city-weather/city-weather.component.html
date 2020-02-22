@@ -10,7 +10,7 @@
     </div>
     <div class="current-city">
         <div class="city-wrapper">
-            <p class="text-muted">Last update: {{ cityWeather.LocalObservationDateTime | date :'mediumTime' }}
+            <p class="text-muted">Last update: {{ cityWeather.LocalObservationDateTime | date :'h:mm:ss a' }}
             </p>
             <span>{{ currCity.name }}</span>
             <img src="{{'assets/weatherIcons/' + cityWeather.WeatherIcon}}-s.png">

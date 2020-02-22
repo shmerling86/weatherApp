@@ -36,11 +36,11 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     })
   }
 
-  // previewFavData(cityKey): void {
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.data = cityKey;
-  //   this.dialog.open(DetailsComponent, dialogConfig);
-  // }
+  previewFavData(cityKey): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = cityKey;
+    this.dialog.open(DetailsComponent, dialogConfig);
+  }
 
   setCityWeather(cityKeys: CityKeys): void {
     this.store.dispatch(new CurrCityActions.CurrCity([cityKeys]));

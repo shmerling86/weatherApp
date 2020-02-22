@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -8,7 +9,8 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   constructor(public router: Router,
-    private el: ElementRef) { }
+    private el: ElementRef
+    ) { }
 
   ngOnInit() {
   }
@@ -19,5 +21,6 @@ export class NavbarComponent implements OnInit {
       myTag.classList.remove('show');
     }
   }
+
   
 }
