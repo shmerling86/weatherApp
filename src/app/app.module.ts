@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -28,6 +30,7 @@ import { currCityByPositionEffects } from './components/home/store/currentByPosi
 import { CityWeatherComponent } from './components/home/city-weather/city-weather.component';
 import { WeekForecastsComponent } from './components/home/week-forecasts/week-forecasts.component';
 import { HomeMenuComponent } from './components/home/home-menu/home-menu.component';
+import { DetailsComponent } from './components/favorites/details/details.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,8 @@ import { HomeMenuComponent } from './components/home/home-menu/home-menu.compone
     SearchComponent,
     CityWeatherComponent,
     WeekForecastsComponent,
-    HomeMenuComponent
+    HomeMenuComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,
@@ -54,6 +58,7 @@ import { HomeMenuComponent } from './components/home/home-menu/home-menu.compone
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),
+    MatDialogModule,
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
   ],
   providers: [MainService],

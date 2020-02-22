@@ -2,7 +2,7 @@
     <form class="form-group" [formGroup]='typedSearchForm'>
         <input type="text" class="form-control" placeholder="Search" formControlName="typedSearch"
             (input)='getCitiesWeather($event.target.value)' (keypress)="checkLang($event)" autofocus />
-        <div class="result-box" *ngIf='stackResults != undefined'>
+        <div class="result-box" *ngIf='stackResults.length !== 0'>
             <ul class="list-group mb-1">
                 <li *ngFor='let result of stackResults' class="list-group-item" 
                 (click)='changeCurrCity({name: result["LocalizedName"], key: result["Key"]})'>

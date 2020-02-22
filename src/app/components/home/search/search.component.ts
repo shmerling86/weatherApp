@@ -23,7 +23,7 @@ import { AutoComplete } from 'src/app/interfaces/AutoComplete';
 export class SearchComponent implements OnInit, OnDestroy {
 
   typedSearchForm: FormGroup;
-  stackResults: AutoComplete[];
+  stackResults: AutoComplete[] = [];
   degreeType: DegreeType;
 
   favoritesSub: Subscription;

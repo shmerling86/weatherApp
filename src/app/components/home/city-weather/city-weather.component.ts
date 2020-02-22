@@ -24,6 +24,7 @@ export class CityWeatherComponent implements  OnInit, OnDestroy {
   currCity: CityKeys;
   degreeType: DegreeType;
   degreeTypes = DegreeType;
+  isLoading: boolean;
   
   currCitySub: Subscription;
   weatherSub: Subscription;
@@ -41,8 +42,9 @@ export class CityWeatherComponent implements  OnInit, OnDestroy {
 
   getCurrCity(): void {
     this.currCitySub = this.store.select('currCity').subscribe(defaultCity => {
+      this.isLoading = defaultCity.isLoading;
       if (defaultCity.error !== undefined) this.toastr.error(defaultCity.error.message);
-      if (!defaultCity.isLoading && defaultCity.weather !== null) this.cityWeather = defaultCity.weather[0];
+      if (!this.isLoading && defaultCity.weather !== null) this.cityWeather = defaultCity.weather[0];
       this.currCity = defaultCity.city[0];
     });
     this.store.dispatch(new CurrCityActions.CurrCity([this.currCity]))
