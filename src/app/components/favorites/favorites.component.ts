@@ -5,13 +5,16 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
-import * as FavoritesActions from '../favorites/store/favorites.action';
+import * as FavoritesActions from '../favorites/store/favorites.actions';
 import * as CurrCityActions from '../../components/home/store/current/currCity.actions';
+
 
 import { ToastrService } from 'ngx-toastr';
 import { CityKeys } from 'src/app/interfaces/CityKeys';
 import { Favorite } from 'src/app/interfaces/Favorite';
 import { DetailsComponent } from '../favorites/details/details.component';
+import { DegreeType } from 'src/app/enum/DegreeType.enum';
+import { HourlyWeather } from 'src/app/interfaces/HourlyWeather';
 
 
 @Component({
@@ -22,7 +25,13 @@ import { DetailsComponent } from '../favorites/details/details.component';
 export class FavoritesComponent implements OnInit, OnDestroy {
 
   favoritCities: Favorite[] = JSON.parse(localStorage.getItem('favoriteCities')) || [];
+  degreeType: DegreeType;
+  preview: HourlyWeather;
+  favoriteInfo: any;
+
   favoritesSub: Subscription;
+  degreeTypeSub: Subscription;
+  previewSub: Subscription;
 
   constructor(
     public router: Router,
@@ -34,12 +43,22 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     this.favoritesSub = this.store.select('favorites').subscribe((favorites) => {
       if (this.favoritCities.length === 0) this.favoritCities = favorites.favorites
     })
+
   }
 
   previewFavData(cityKey): void {
+    this.degreeTypeSub = this.store.select('degreeType').subscribe((degreeType) => this.degreeType = degreeType.degreeType);
+    this.store.dispatch(new FavoritesActions.FavoritePreview({ key: cityKey, degreeType: this.degreeType }));
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = cityKey;
-    this.dialog.open(DetailsComponent, dialogConfig);
+    this.previewSub = this.store.select('favorites').subscribe(favorites => {
+      if (favorites.error !== undefined) this.toastr.error(favorites.error.message);
+      if (!favorites.isLoading) {
+        this.favoriteInfo = favorites;
+        dialogConfig.data = this.favoriteInfo.preview[0];
+      }
+    });
+    console.log(dialogConfig.data);
+    if (dialogConfig.data) this.dialog.open(DetailsComponent, dialogConfig);
   }
 
   setCityWeather(cityKeys: CityKeys): void {
@@ -55,9 +74,10 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     this.toastr.info('Item removed');
   }
 
-
   ngOnDestroy(): void {
     if (this.favoritesSub != undefined) this.favoritesSub.unsubscribe();
+    if (this.degreeTypeSub != undefined) this.degreeTypeSub.unsubscribe();
+    if (this.previewSub != undefined) this.previewSub.unsubscribe();
   }
 
 

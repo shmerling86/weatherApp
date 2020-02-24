@@ -1,3 +1,13 @@
-<mat-dialog-content>
-    <div>{{data}}</div>
+<mat-dialog-content *ngIf='data'>
+    <div>Humidity: {{data.RelativeHumidity}}%</div>
+    <div>Visibility: {{data.Visibility.Value}}{{data.Visibility.Unit}}</div>
+    <div>Wind Speed: {{data.Wind.Speed.Value}}{{data.Wind.Speed.Value.Unit}}</div>
+    <div>Wind Direction: {{data.Wind.Direction.Degrees}}°{{data.Wind.Direction.Localized}}</div>
+    <div>Cloud Cover: {{data.CloudCover}}%</div>
+    <div>Rain Probability: {{data.RainProbability}}</div>
+    <div>Ice Probability: {{data.IceProbability}}</div>
+    <div>Snow Probability: {{data.SnowProbability}}</div>
+    <div>Rain amount: {{data.Rain.Value}}{{data.Wind.Speed.Value.Unit}}</div>
+    <div>Ice amount: {{data.Ice.Value}}{{data.Ice.Value.Unit}}</div>
+    <div>Snow amount: {{data.Snow.Value}}{{data.Snow.Value.Unit}}</div>
 </mat-dialog-content>

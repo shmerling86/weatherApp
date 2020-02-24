@@ -43,7 +43,6 @@ export function weekReducer(
                 ...state,
                 error: action.payload,
                 cityForecast: null,
-                isLoading: false
             };
         case HomeActions.SWITCH_DEGREE_TYPE:
             return {

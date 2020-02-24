@@ -25,6 +25,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   typedSearchForm: FormGroup;
   stackResults: AutoComplete[] = [];
   degreeType: DegreeType;
+  isLoading: boolean;
+
 
   favoritesSub: Subscription;
   resultSub: Subscription;
@@ -49,6 +51,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   getCitiesWeather(typedText): void {
     this.store.dispatch(new ResultsActions.SearchResults(typedText))
     this.resultSub = this.store.select('stackResults').subscribe(stackResult => {
+      this.isLoading = stackResult.isLoading;
       if (stackResult.error !== undefined) this.toastr.error(stackResult.error.message);
       if (!stackResult.isLoading) this.stackResults = stackResult.list
     });

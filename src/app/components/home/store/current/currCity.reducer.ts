@@ -45,7 +45,6 @@ export function currentCityReducer(
             return {
                 ...state,
                 error: action.payload,
-                isLoading: false
             };
         default:
             return state;

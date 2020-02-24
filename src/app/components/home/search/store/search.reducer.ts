@@ -41,7 +41,6 @@ export function resultsReducer(
                 ...state,
                 error: action.payload,
                 list: [],
-                isLoading: false
             };
         default:
             return state;

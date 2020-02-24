@@ -6,7 +6,7 @@ import * as fromApp from '../../../store/app.reducer';
 import * as WeatherActions from '../store/weekWeather/weekWeather.actions';
 import * as CurrCityActions from '../store/current/currCity.actions';
 import * as CurrCityByPositionActions from '../store/currentByPosition/currentByPosition.actions';
-import * as FavoritesActions from '../../favorites/store/favorites.action';
+import * as FavoritesActions from '../../favorites/store/favorites.actions';
 
 import { ToastrService } from 'ngx-toastr';
 

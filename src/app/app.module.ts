@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule, MatDialogRef, MatDialog  } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 import { StoreModule } from '@ngrx/store';
@@ -27,6 +27,8 @@ import { ResultsEffects } from './components/home/search/store/search.effect';
 import { CurrCityEffects } from './components/home/store/current/currCity.effect';
 import { WeekWeatherEffects } from './components/home/store/weekWeather/weekWeather.effect';
 import { currCityByPositionEffects } from './components/home/store/currentByPosition/currentByPosition.effect';
+import { FavoritesPreviewEffects } from './components/favorites/store/favorites.effect';
+
 import { CityWeatherComponent } from './components/home/city-weather/city-weather.component';
 import { WeekForecastsComponent } from './components/home/week-forecasts/week-forecasts.component';
 import { HomeMenuComponent } from './components/home/home-menu/home-menu.component';
@@ -54,7 +56,7 @@ import { DetailsComponent } from './components/favorites/details/details.compone
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([ResultsEffects, CurrCityEffects, currCityByPositionEffects, WeekWeatherEffects]),
+    EffectsModule.forRoot([ResultsEffects, CurrCityEffects, currCityByPositionEffects, WeekWeatherEffects, FavoritesPreviewEffects]),
     StoreDevtoolsModule.instrument({maxAge: 10 }),
     MatDialogModule,
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),

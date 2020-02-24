@@ -21,9 +21,11 @@ export class WeekForecastsComponent implements OnInit, OnDestroy {
   currCity: CityKeys;
   degreeType: DegreeType;
   degreeTypes = DegreeType;
+
   isMoreInfoOpen: boolean;
   isDayForecast: boolean;
-  
+  isLoading: boolean;
+
   degreeTypeSub: Subscription;
   weatherSub: Subscription;
   currCitySub: Subscription;
@@ -60,6 +62,7 @@ export class WeekForecastsComponent implements OnInit, OnDestroy {
     this.degreeTypeSub = this.store.select('degreeType').subscribe((degreeType) => this.degreeType = degreeType.degreeType);
     this.store.dispatch(new WeatherActions.WeekWeather({ key: this.currCity.key, degreeType: this.degreeType }));
     this.weatherSub = this.store.select('weekWeather').subscribe(weekWeather => {
+      this.isLoading = weekWeather.isLoading;
       if (weekWeather.error !== undefined) this.toastr.error(weekWeather.error.message);
       if (!weekWeather.isLoading && weekWeather.cityForecast != null) this.weekForecasts = weekWeather.cityForecast['DailyForecasts']
     });
