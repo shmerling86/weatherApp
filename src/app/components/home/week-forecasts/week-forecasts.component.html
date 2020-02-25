@@ -3,7 +3,6 @@
         <div class="day" *ngFor='let day of weekForecasts'>
             <div class="day-wrapper">
                 <span class="day-title">{{ getDays(day.Date) }}</span>
-                <!-- <span class="text-muted">{{ day.Date | date :'d/M/yyyy' }}</span> -->
                 <img src="{{'assets/weatherIcons/' + day.Day.Icon}}-s.png" *ngIf='isDayForecast'>
                 <img src="{{'assets/weatherIcons/' + day.Night.Icon}}-s.png" *ngIf='!isDayForecast'>
                 <span class="weather-title text-muted">
@@ -14,26 +13,24 @@
                 <b *ngIf='isDayForecast'>{{ day.Temperature.Maximum.Value }}°{{ day.Temperature.Maximum.Unit }}</b>
                 <b *ngIf='!isDayForecast'>{{ day.Temperature.Minimum.Value }}°{{ day.Temperature.Minimum.Unit }}</b>
                 <div class="more-info text-muted" *ngIf='isMoreInfoOpen'>
-
                     <div>
                         <span class="more-info-item" *ngIf='isDayForecast'>Feels like:
                             {{ day.RealFeelTemperature.Maximum.Value }}°{{ day.RealFeelTemperature.Maximum.Unit }}
                         </span>
                         <span class="more-info-item" *ngIf='!isDayForecast'>Feels like:
                             {{ day.RealFeelTemperature.Minimum.Value }}°{{ day.RealFeelTemperature.Minimum.Unit }}</span>
-                            <span *ngIf='isDayForecast' class="more-info-item">Rain chance:
-                                {{day.Day.PrecipitationProbability}}%</span>
+                        <span *ngIf='isDayForecast' class="more-info-item">Rain chance:
+                            {{day.Day.PrecipitationProbability}}%</span>
                         <span *ngIf='!isDayForecast' class="more-info-item">Rain chance:
                             {{day.Night.PrecipitationProbability}}%</span>
-                            <span class="more-info-item">Hours of sun:
-                                {{day.HoursOfSun}}</span>
-                                <span class="more-info-item">Hours of rain:
-                                    {{day.Day.HoursOfRain}}</span>
-                        </div>
-                        
-                        <div>
-                                <span class="more-info-item">Sun(rise): {{day.Sun.Rise | date :'shortTime'}}</span>
-                         <span class="more-info-item">Sun(set): {{day.Sun.Set | date :'shortTime'}}</span>
+                        <span class="more-info-item">Hours of sun:
+                            {{day.HoursOfSun}}</span>
+                        <span class="more-info-item">Hours of rain:
+                            {{day.Day.HoursOfRain}}</span>
+                    </div>
+                    <div>
+                        <span class="more-info-item">Sun(rise): {{day.Sun.Rise | date :'shortTime'}}</span>
+                        <span class="more-info-item">Sun(set): {{day.Sun.Set | date :'shortTime'}}</span>
                         <span class="more-info-item">Moon(rise): {{day.Moon.Rise | date :'shortTime'}}</span>
                         <span class="more-info-item">Moon(set): {{day.Moon.Set | date :'shortTime'}}</span>
                     </div>

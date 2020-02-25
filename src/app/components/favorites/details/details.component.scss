@@ -1,6 +1,6 @@
 .main-preview {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   flex-direction: row;
   width: 20em;
   @media (max-width: 415px){
@@ -8,7 +8,6 @@
     font-size: 0.7em;
 }
   .col-preview {
-      width: 50%;
     span {
       display: flex;
       flex-direction: column;
