@@ -1,13 +1,26 @@
 <mat-dialog-content *ngIf='data'>
-    <div>Humidity: {{data.RelativeHumidity}}%</div>
-    <div>Visibility: {{data.Visibility.Value}}{{data.Visibility.Unit}}</div>
-    <div>Wind Speed: {{data.Wind.Speed.Value}}{{data.Wind.Speed.Value.Unit}}</div>
-    <div>Wind Direction: {{data.Wind.Direction.Degrees}}°{{data.Wind.Direction.Localized}}</div>
-    <div>Cloud Cover: {{data.CloudCover}}%</div>
-    <div>Rain Probability: {{data.RainProbability}}</div>
-    <div>Ice Probability: {{data.IceProbability}}</div>
-    <div>Snow Probability: {{data.SnowProbability}}</div>
-    <div>Rain amount: {{data.Rain.Value}}{{data.Wind.Speed.Value.Unit}}</div>
-    <div>Ice amount: {{data.Ice.Value}}{{data.Ice.Value.Unit}}</div>
-    <div>Snow amount: {{data.Snow.Value}}{{data.Snow.Value.Unit}}</div>
+    <div class="main-preview">
+        <div class="col-preview">
+            <span><b>Humidity: </b>
+                {{data.RelativeHumidity}}%</span>
+            <span><b>Visibility: </b>
+                {{data.Visibility.Value}}{{data.Visibility.Unit}}</span>
+            <span><b>Cloud Cover: </b>
+                {{data.CloudCover}}%</span>
+            <b>Wind</b>
+            <span>Speed: {{data.Wind.Speed.Value}}{{data.Wind.Speed.Value.Unit}}</span>
+            <span>Direction: {{data.Wind.Direction.Degrees}}°{{data.Wind.Direction.Localized}}</span>
+        </div>
+        <div class="col-preview">
+            <b>Rain</b>
+            <span>Probability: {{data.RainProbability}}%</span>
+            <span>Amount: {{data.Rain.Value}}{{data.Rain.Unit}}</span>
+            <b>Ice</b>
+            <span>Probability: {{data.IceProbability}}%</span>
+            <span>Amount: {{data.Ice.Value}}{{data.Ice.Unit}}</span>
+            <b>Snow</b>
+            <span>Probability: {{data.SnowProbability}}%</span>
+            <span>Amount: {{data.Snow.Value}}{{data.Snow.Unit}}</span>
+        </div>
+    </div>
 </mat-dialog-content>

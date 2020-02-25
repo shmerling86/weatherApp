@@ -26,7 +26,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
 
   favoritCities: Favorite[] = JSON.parse(localStorage.getItem('favoriteCities')) || [];
   degreeType: DegreeType;
-  preview: HourlyWeather;
+  favoritesExtraData: HourlyWeather;
   favoriteInfo: any;
 
   favoritesSub: Subscription;
@@ -40,25 +40,20 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    const dialogConfig = new MatDialogConfig();
+    this.degreeTypeSub = this.store.select('degreeType').subscribe((degreeType) => this.degreeType = degreeType.degreeType);
     this.favoritesSub = this.store.select('favorites').subscribe((favorites) => {
-      if (this.favoritCities.length === 0) this.favoritCities = favorites.favorites
+      if (favorites.error !== undefined) this.toastr.error(favorites.error.message);
+      if (this.favoritCities.length === 0) this.favoritCities = favorites.favorites;
+      if (favorites.preview.length > 0) {
+        dialogConfig.data = favorites.preview[0];
+        this.dialog.open(DetailsComponent, dialogConfig)
+      }
     })
-
   }
 
   previewFavData(cityKey): void {
-    this.degreeTypeSub = this.store.select('degreeType').subscribe((degreeType) => this.degreeType = degreeType.degreeType);
     this.store.dispatch(new FavoritesActions.FavoritePreview({ key: cityKey, degreeType: this.degreeType }));
-    const dialogConfig = new MatDialogConfig();
-    this.previewSub = this.store.select('favorites').subscribe(favorites => {
-      if (favorites.error !== undefined) this.toastr.error(favorites.error.message);
-      if (!favorites.isLoading) {
-        this.favoriteInfo = favorites;
-        dialogConfig.data = this.favoriteInfo.preview[0];
-      }
-    });
-    console.log(dialogConfig.data);
-    if (dialogConfig.data) this.dialog.open(DetailsComponent, dialogConfig);
   }
 
   setCityWeather(cityKeys: CityKeys): void {
@@ -77,7 +72,6 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.favoritesSub != undefined) this.favoritesSub.unsubscribe();
     if (this.degreeTypeSub != undefined) this.degreeTypeSub.unsubscribe();
-    if (this.previewSub != undefined) this.previewSub.unsubscribe();
   }
 
 

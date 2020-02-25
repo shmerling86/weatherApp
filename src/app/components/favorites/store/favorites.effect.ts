@@ -19,13 +19,14 @@ export class FavoritesPreviewEffects {
             ofType<FavoritesActions.FavoritePreview>(FavoritesActions.FAVORITE_PREVIEW),
             mergeMap((city) => {
                 return this.http
-                    .get<HourlyWeather[]>(`https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${city.payload.key}`,{
-                        params:{
-                            apikey: this.mainService.API,
-                            details: 'true',
-                            metric: String(city.payload.degreeType !== DegreeType.Celsius)
-                        }
-                    })
+                .get<HourlyWeather[]>('assets/hourly.json')
+                    // .get<HourlyWeather[]>(`https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/${city.payload.key}`,{
+                    //     params:{
+                    //         apikey: this.mainService.API,
+                    //         details: 'true',
+                    //         metric: String(city.payload.degreeType !== DegreeType.Celsius)
+                    //     }
+                    // })
                     .pipe(map(data => { return new FavoritesActions.FavoritePreviewSuccess(data) }),
                         catchError(error => of(new FavoritesActions.FavoritePreviewFailure(error)))
                     )
