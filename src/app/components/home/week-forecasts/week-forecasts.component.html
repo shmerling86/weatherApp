@@ -14,19 +14,18 @@
                 <b *ngIf='!isDayForecast'>{{ day.Temperature.Minimum.Value }}°{{ day.Temperature.Minimum.Unit }}</b>
                 <div class="more-info text-muted" *ngIf='isMoreInfoOpen'>
                     <div class="more-info-wraper">
-                        <span class="more-info-item" *ngIf='isDayForecast'><b>Feels like: </b>
+                        <span class="more-info-item" *ngIf='isDayForecast'><b>Feels like:</b>
                             {{ day.RealFeelTemperature.Maximum.Value }}°{{ day.RealFeelTemperature.Maximum.Unit }}
                         </span>
-                        <span class="more-info-item" *ngIf='!isDayForecast'><b>Feels like: </b>
+                        <span class="more-info-item" *ngIf='!isDayForecast'><b>Feels like:</b>
                             {{ day.RealFeelTemperature.Minimum.Value }}°{{ day.RealFeelTemperature.Minimum.Unit }}</span>
-
-                        <span *ngIf='isDayForecast' class="more-info-item"><b>Rain Probability: </b>
-                            {{day.Day.PrecipitationProbability}}%</span>
-                        <span *ngIf='!isDayForecast' class="more-info-item"><b>Rain Probability: </b>
-                            {{day.Night.PrecipitationProbability}}%</span>
-                        <span class="more-info-item"><b>Hours of sun: </b>
+                        <span *ngIf='isDayForecast' class="more-info-item"><b>Rain Probability:</b>
+                            {{ day.Day.PrecipitationProbability}}%</span>
+                        <span *ngIf='!isDayForecast' class="more-info-item"><b>Rain Probability:</b>
+                            {{ day.Night.PrecipitationProbability}}%</span>
+                        <span class="more-info-item"><b>Hours of sun:</b>
                             {{day.HoursOfSun}}</span>
-                        <span class="more-info-item"><b>Hours of rain: </b>
+                        <span class="more-info-item"><b>Hours of rain:</b>
                             {{day.Day.HoursOfRain}}</span>
                     </div>
                     <div class="sun-moon">
