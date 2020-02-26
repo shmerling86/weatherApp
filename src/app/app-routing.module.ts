@@ -9,11 +9,11 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/favorites'
+    redirectTo: '/home'
   },
   { path: 'home', component: HomeComponent },
   { path: 'favorites', component: FavoritesComponent },
-  { path: '**', redirectTo: '/favorites' }
+  { path: '**', redirectTo: '/home' }
   
 ]
 @NgModule({

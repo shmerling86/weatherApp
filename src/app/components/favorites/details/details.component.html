@@ -1,8 +1,10 @@
 <mat-dialog-content>
     <div class="main-title">
-        <img *ngIf='currentIndex !== 0' (click)='getHourDOWN()' src="assets/favIcons/arrow-left.png">
+        <img [style.visibility]="currentIndex === 0 ? 'hidden' : 'visible'" (click)='getHourDOWN()'
+            src="assets/favIcons/arrow-left.png">
         <p>Hourly info for : <b>{{ currentHourInfo.DateTime | date :'h:mm a' }}</b></p>
-        <img *ngIf='currentIndex !== 11'(click)='getHourUP()' src="assets/favIcons/arrow-right.png">
+        <img [style.visibility]="currentIndex === 11 ? 'hidden' : 'visible'" (click)='getHourUP()'
+            src="assets/favIcons/arrow-right.png">
     </div>
     <div class="dropdown-divider"></div>
     <div class="main-preview">
