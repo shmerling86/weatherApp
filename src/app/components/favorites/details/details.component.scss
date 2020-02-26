@@ -4,7 +4,10 @@
   justify-content: center;
   p {
     margin: 0 1em;
+    @media (max-width: 415px){
+      font-size: 0.7em;
   }
+}
   img {
     width: 1.5em;
     height: 1.5em;
