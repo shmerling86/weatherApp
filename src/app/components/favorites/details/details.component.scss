@@ -1,17 +1,21 @@
+.main-title {
+  p {
+    text-align: center;
+  }
+}
 .main-preview {
   display: flex;
   justify-content: space-around;
   flex-direction: row;
   width: 20em;
-  @media (max-width: 415px){
+  @media (max-width: 415px) {
     width: 18em;
     font-size: 0.7em;
-}
+  }
   .col-preview {
     span {
       display: flex;
       flex-direction: column;
     }
-    
   }
 }

@@ -1,14 +1,18 @@
 <mat-dialog-content *ngIf='data'>
+    <div class="main-title">
+        <p>Hourly info for : <b>{{data.DateTime | date :'h:mm a' }}</b></p>
+    </div>
+    <div class="dropdown-divider"></div>
     <div class="main-preview">
         <div class="col-preview">
-            <span><b>Humidity: </b>
+            <span><b>Humidity</b>
                 {{data.RelativeHumidity}}%</span>
-            <span><b>Visibility: </b>
+            <span><b>Visibility</b>
                 {{data.Visibility.Value}}{{data.Visibility.Unit}}</span>
-            <span><b>Cloud Cover: </b>
+            <span><b>Cloud Cover</b>
                 {{data.CloudCover}}%</span>
             <b>Wind</b>
-            <span>Speed: {{data.Wind.Speed.Value}}{{data.Wind.Speed.Value.Unit}}</span>
+            <span>Speed: {{data.Wind.Speed.Value}}{{data.Wind.Speed.Unit}}</span>
             <span>Direction: {{data.Wind.Direction.Degrees}}°{{data.Wind.Direction.Localized}}</span>
         </div>
         <div class="col-preview">
@@ -23,4 +27,5 @@
             <span>Amount: {{data.Snow.Value}}{{data.Snow.Unit}}</span>
         </div>
     </div>
+    
 </mat-dialog-content>

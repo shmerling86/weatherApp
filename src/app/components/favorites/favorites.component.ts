@@ -27,7 +27,8 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   favoritCities: Favorite[] = JSON.parse(localStorage.getItem('favoriteCities')) || [];
   degreeType: DegreeType;
   favoritesExtraData: HourlyWeather;
-  favoriteInfo: any;
+  cityName: string;
+  city12hours: any;
 
   favoritesSub: Subscription;
   degreeTypeSub: Subscription;
@@ -40,20 +41,24 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    const dialogConfig = new MatDialogConfig();
     this.degreeTypeSub = this.store.select('degreeType').subscribe((degreeType) => this.degreeType = degreeType.degreeType);
     this.favoritesSub = this.store.select('favorites').subscribe((favorites) => {
       if (favorites.error !== undefined) this.toastr.error(favorites.error.message);
       if (this.favoritCities.length === 0) this.favoritCities = favorites.favorites;
-      if (favorites.preview.length > 0) {
-        dialogConfig.data = favorites.preview[0];
-        this.dialog.open(DetailsComponent, dialogConfig)
-      }
+      if (favorites.preview.length !== 0) this.city12hours = favorites.preview;
     })
   }
 
-  previewFavData(cityKey): void {
-    this.store.dispatch(new FavoritesActions.FavoritePreview({ key: cityKey, degreeType: this.degreeType }));
+  getCityHourlyInfo(cityKey): void {
+    this.store.dispatch(new FavoritesActions.FavoritePreview({ key: cityKey.key, degreeType: this.degreeType }));
+  }
+
+  previewFavData(): void {
+    if (this.city12hours != undefined) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = this.city12hours[0]
+      this.dialog.open(DetailsComponent, dialogConfig)
+    }
   }
 
   setCityWeather(cityKeys: CityKeys): void {

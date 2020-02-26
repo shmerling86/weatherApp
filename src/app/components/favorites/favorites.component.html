@@ -5,13 +5,13 @@
     <ng-template #favorite>
         <div class="favorite" *ngFor='let favorite of favoritCities'>
             <div class="options">
-                <div class="dropdown">
-                    <img src="assets/favIcons/menu-2.png" id="dropdownMenuButton" data-toggle="dropdown"
+                <div class="dropdown" >
+                    <img src="assets/favIcons/menu-2.png" (click)='getCityHourlyInfo(favorite.city)' id="dropdownMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                        <span (click)='previewFavData(favorite.city.key)' class="dropdown-itemp">
+                        <span class="dropdown-itemp" (click)='previewFavData()'>
                             <img src='assets/favIcons/data.png'>
-                            <p>Last hour preview</p>
+                            <p>Hourly info</p>
                         </span>
                         <div class="dropdown-divider"></div>
                         <span (click)='setCityWeather({name: favorite.city.name, key: favorite.city.key})'
