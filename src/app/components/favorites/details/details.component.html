@@ -1,31 +1,34 @@
-<mat-dialog-content *ngIf='data'>
+<mat-dialog-content>
     <div class="main-title">
-        <p>Hourly info for : <b>{{data.DateTime | date :'h:mm a' }}</b></p>
+        <img *ngIf='currentIndex !== 0' (click)='getHourDOWN()' src="assets/favIcons/arrow-left.png">
+        <p>Hourly info for : <b>{{ currentHourInfo.DateTime | date :'h:mm a' }}</b></p>
+        <img *ngIf='currentIndex !== 11'(click)='getHourUP()' src="assets/favIcons/arrow-right.png">
     </div>
     <div class="dropdown-divider"></div>
     <div class="main-preview">
         <div class="col-preview">
             <span><b>Humidity</b>
-                {{data.RelativeHumidity}}%</span>
+                {{currentHourInfo.RelativeHumidity}}%</span>
             <span><b>Visibility</b>
-                {{data.Visibility.Value}}{{data.Visibility.Unit}}</span>
+                {{currentHourInfo.Visibility.Value}}{{currentHourInfo.Visibility.Unit}}</span>
             <span><b>Cloud Cover</b>
-                {{data.CloudCover}}%</span>
+                {{currentHourInfo.CloudCover}}%</span>
             <b>Wind</b>
-            <span>Speed: {{data.Wind.Speed.Value}}{{data.Wind.Speed.Unit}}</span>
-            <span>Direction: {{data.Wind.Direction.Degrees}}°{{data.Wind.Direction.Localized}}</span>
+            <span>Speed: {{currentHourInfo.Wind.Speed.Value}}{{currentHourInfo.Wind.Speed.Unit}}</span>
+            <span>Direction:
+                {{currentHourInfo.Wind.Direction.Degrees}}°{{currentHourInfo.Wind.Direction.Localized}}</span>
         </div>
         <div class="col-preview">
             <b>Rain</b>
-            <span>Probability: {{data.RainProbability}}%</span>
-            <span>Amount: {{data.Rain.Value}}{{data.Rain.Unit}}</span>
+            <span>Probability: {{currentHourInfo.RainProbability}}%</span>
+            <span>Amount: {{currentHourInfo.Rain.Value}}{{currentHourInfo.Rain.Unit}}</span>
             <b>Ice</b>
-            <span>Probability: {{data.IceProbability}}%</span>
-            <span>Amount: {{data.Ice.Value}}{{data.Ice.Unit}}</span>
+            <span>Probability: {{currentHourInfo.IceProbability}}%</span>
+            <span>Amount: {{currentHourInfo.Ice.Value}}{{currentHourInfo.Ice.Unit}}</span>
             <b>Snow</b>
-            <span>Probability: {{data.SnowProbability}}%</span>
-            <span>Amount: {{data.Snow.Value}}{{data.Snow.Unit}}</span>
+            <span>Probability: {{currentHourInfo.SnowProbability}}%</span>
+            <span>Amount: {{currentHourInfo.Snow.Value}}{{currentHourInfo.Snow.Unit}}</span>
         </div>
     </div>
-    
+
 </mat-dialog-content>

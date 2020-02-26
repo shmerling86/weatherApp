@@ -26,9 +26,8 @@ export class FavoritesComponent implements OnInit, OnDestroy {
 
   favoritCities: Favorite[] = JSON.parse(localStorage.getItem('favoriteCities')) || [];
   degreeType: DegreeType;
-  favoritesExtraData: HourlyWeather;
   cityName: string;
-  city12hours: any;
+  city12hours: HourlyWeather[];
 
   favoritesSub: Subscription;
   degreeTypeSub: Subscription;
@@ -56,8 +55,8 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   previewFavData(): void {
     if (this.city12hours != undefined) {
       const dialogConfig = new MatDialogConfig();
-      dialogConfig.data = this.city12hours[0]
-      this.dialog.open(DetailsComponent, dialogConfig)
+      dialogConfig.data = this.city12hours;
+      this.dialog.open(DetailsComponent, dialogConfig);
     }
   }
 
