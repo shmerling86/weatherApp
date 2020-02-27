@@ -1,4 +1,4 @@
-<div class="city-weather" *ngIf='!isLoading'>
+<div class="city-weather" *ngIf='!isLoading && cityWeather != null'>
     <div class="current-data">
         <span class="text-muted" *ngIf='degreeType !== degreeTypes.Celsius'>
             {{ cityWeather.Temperature.Metric.Value }}°C</span>
