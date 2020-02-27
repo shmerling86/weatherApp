@@ -15,12 +15,12 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
-  @HostListener('window:scroll', ['$event']) onScrollEvent() {
-    let myTag = this.el.nativeElement.querySelector('#nav')    
-    if (document.documentElement.scrollTop > 0) {
-      myTag.classList.remove('show');
-    }
-  }
+  // @HostListener('window:scroll', ['$event']) onScrollEvent() {
+  //   let myTag = this.el.nativeElement.querySelector('#nav')    
+  //   // if (document.documentElement.scrollTop >= 1) {
+  //     myTag.classList.remove('show');
+  //   // }
+  // }
 
   
 }
